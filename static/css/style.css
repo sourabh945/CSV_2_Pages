@@ -1,0 +1,105 @@
+/* Basic styling and centering */
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1 {
+    color: #1a2b4d;
+    margin-bottom: 2rem;
+}
+
+/* The main data card */
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#data-display.loading {
+    color: #888;
+    font-style: italic;
+}
+
+/* Styling for each data item (e.g., "Name: Alice") */
+.data-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #e9ecef;
+    text-align: left;
+}
+.data-item:last-child {
+    border-bottom: none;
+}
+.data-header {
+    font-weight: 600;
+    color: #555;
+}
+.data-value {
+    color: #111;
+}
+
+/* Navigation buttons and counter */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.nav-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition:
+        background-color 0.2s,
+        transform 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.nav-btn:disabled {
+    background-color: #c0c0c0;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#row-counter {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #495057;
+    margin: 0 1rem;
+}
+
+.nav-input {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+}

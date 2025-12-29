@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Data Viewer</title>
+        <!-- Link to the CSS file -->
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <h1>CSV Data Viewer</h1>
+
+            <!-- This is where the data for one row will be displayed -->
+            <div id="data-card" class="card">
+                <div id="data-display" class="loading">Loading data...</div>
+            </div>
+
+            <!-- Navigation controls -->
+            <div class="navigation">
+                <button id="prev-btn" class="nav-btn" disabled>
+                    &#8592; Previous
+                </button>
+                <p id="row-counter">Row 0</p>
+                <button id="next-btn" class="nav-btn">Next &#8594;</button>
+            </div>
+            <hr />
+            <div class="navigation-goto">
+                <input id="goto" value="" type="number" class="nav-input" />
+                <button id="goto-btn" class="nav-btn" disabled>
+                    GOTO &#8594;
+                </button>
+            </div>
+        </div>
+
+        <!-- Link to the JavaScript file -->
+        <!-- 'defer' ensures the script runs after the HTML is parsed -->
+        <script
+            src="{{ url_for('static', filename='js/script.js') }}"
+            defer
+        ></script>
+    </body>
+</html>
