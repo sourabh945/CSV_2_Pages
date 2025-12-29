@@ -3,44 +3,1167 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Data Viewer</title>
-        <!-- Link to the CSS file -->
+        <title>CSV Viewer</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap"
             rel="stylesheet"
-            href="{{ url_for('static', filename='css/style.css') }}"
         />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Roboto Mono", monospace;
+                background: #fafafa;
+                color: #1a1a1a;
+                min-height: 100vh;
+                padding: 20px;
+                font-size: 13px;
+            }
+
+            .container {
+                max-width: 1800px;
+                margin: 0 auto;
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                padding: 15px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+            }
+
+            .title {
+                font-size: 16px;
+                font-weight: 500;
+                color: #1a1a1a;
+            }
+
+            .view-toggle {
+                display: flex;
+                gap: 10px;
+            }
+
+            .toggle-btn {
+                padding: 8px 16px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                color: #666;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+            }
+
+            .toggle-btn:hover {
+                background: #f5f5f5;
+                color: #1a1a1a;
+            }
+
+            .toggle-btn.active {
+                background: #1a1a1a;
+                color: #fff;
+                border-color: #1a1a1a;
+            }
+
+            .controls {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 20px;
+                padding: 15px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                flex-wrap: wrap;
+            }
+
+            input,
+            select {
+                padding: 8px 12px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                color: #1a1a1a;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+                flex: 1;
+                min-width: 150px;
+            }
+
+            input:focus,
+            select:focus {
+                outline: none;
+                border-color: #999;
+            }
+
+            button {
+                padding: 8px 16px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                color: #1a1a1a;
+                cursor: pointer;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+                transition: all 0.2s;
+            }
+
+            button:hover {
+                background: #f5f5f5;
+                border-color: #999;
+            }
+
+            button:disabled {
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
+
+            .stats {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .stat {
+                padding: 10px 15px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                flex: 1;
+            }
+
+            .stat-label {
+                font-size: 10px;
+                color: #999;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+                color: #1a1a1a;
+            }
+
+            /* Table View */
+            .table-view {
+                display: block;
+            }
+
+            .table-view.hidden {
+                display: none;
+            }
+
+            .table-container {
+                overflow-x: auto;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th {
+                padding: 12px;
+                background: #f5f5f5;
+                border-bottom: 1px solid #e0e0e0;
+                text-align: left;
+                font-weight: 500;
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #666;
+                position: sticky;
+                top: 0;
+            }
+
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 12px;
+            }
+
+            tbody tr:hover {
+                background: #fafafa;
+            }
+
+            /* Card View */
+            .card-view {
+                display: none;
+            }
+
+            .card-view.active {
+                display: block;
+            }
+
+            .card-container {
+                display: flex;
+                gap: 0;
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #fafafa;
+            }
+
+            .card-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+                background: #fff;
+                border-right: 1px solid #e0e0e0;
+                min-width: 250px;
+                max-width: 250px;
+                overflow-y: auto;
+            }
+
+            .card-nav-item {
+                padding: 8px 12px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-size: 11px;
+            }
+
+            .card-nav-item:hover {
+                background: #f5f5f5;
+            }
+
+            .card-nav-item.active {
+                background: #1a1a1a;
+                color: #fff;
+                border-color: #1a1a1a;
+            }
+
+            .card-content {
+                flex: 1;
+                background: #fff;
+                border: none;
+                padding: 40px 60px;
+                overflow-y: auto;
+            }
+
+            .card {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .card-title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #1a1a1a;
+                text-transform: uppercase;
+            }
+
+            .card-header-controls {
+                display: flex;
+                gap: 10px;
+            }
+
+            .close-card-btn,
+            .toggle-sidebar-btn,
+            .config-btn {
+                padding: 8px 16px;
+                background: #fff;
+                color: #1a1a1a;
+                border: 1px solid #e0e0e0;
+                cursor: pointer;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+            }
+
+            .close-card-btn {
+                background: #1a1a1a;
+                color: #fff;
+                border-color: #1a1a1a;
+            }
+
+            .close-card-btn:hover,
+            .toggle-sidebar-btn:hover,
+            .config-btn:hover {
+                background: #f5f5f5;
+            }
+
+            .close-card-btn:hover {
+                background: #333;
+            }
+
+            .card-nav.hidden {
+                display: none;
+            }
+
+            .card-content.full-width {
+                margin-left: 0;
+            }
+
+            /* Config Modal */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            .modal.active {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-content {
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                padding: 30px;
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .modal-header {
+                font-size: 14px;
+                font-weight: 500;
+                text-transform: uppercase;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .field-toggle {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                margin-bottom: 5px;
+                border: 1px solid #e0e0e0;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .field-toggle:hover {
+                background: #fafafa;
+            }
+
+            .field-toggle input[type="checkbox"] {
+                margin-right: 10px;
+                cursor: pointer;
+            }
+
+            .field-toggle label {
+                flex: 1;
+                cursor: pointer;
+                font-size: 12px;
+            }
+
+            .modal-footer {
+                display: flex;
+                gap: 10px;
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid #e0e0e0;
+            }
+
+            .card-row.hidden {
+                display: none;
+            }
+
+            .card-row {
+                display: flex;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .card-label {
+                min-width: 200px;
+                color: #999;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+
+            .card-value {
+                flex: 1;
+                color: #1a1a1a;
+                word-break: break-word;
+            }
+
+            .card-remarks {
+                margin-top: 30px;
+                padding-top: 30px;
+                border-top: 2px solid #e0e0e0;
+            }
+
+            .card-remarks-title {
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #999;
+                margin-bottom: 15px;
+            }
+
+            .remark-input-wrapper {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .remark-input {
+                flex: 1;
+                padding: 10px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                color: #1a1a1a;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+            }
+
+            .remark-input:focus {
+                outline: none;
+                border-color: #999;
+            }
+
+            .remark-values {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .remark-tag {
+                padding: 6px 12px;
+                background: #f5f5f5;
+                border: 1px solid #e0e0e0;
+                font-size: 11px;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .remark-meta {
+                font-size: 10px;
+                color: #999;
+                margin-top: 10px;
+            }
+
+            .card-navigation {
+                display: flex;
+                gap: 10px;
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #f0f0f0;
+            }
+
+            .message {
+                padding: 12px;
+                margin-bottom: 20px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                font-size: 11px;
+            }
+
+            .message.success {
+                border-color: #4caf50;
+                color: #2e7d32;
+                background: #e8f5e9;
+            }
+
+            .message.error {
+                border-color: #f44336;
+                color: #c62828;
+                background: #ffebee;
+            }
+
+            .loading {
+                text-align: center;
+                padding: 40px;
+                color: #999;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
-            <h1>CSV Data Viewer</h1>
-
-            <!-- This is where the data for one row will be displayed -->
-            <div id="data-card" class="card">
-                <div id="data-display" class="loading">Loading data...</div>
+            <div class="header">
+                <div class="title">CSV VIEWER</div>
+                <div class="view-toggle">
+                    <button
+                        class="toggle-btn active"
+                        onclick="switchView('table')"
+                    >
+                        TABLE
+                    </button>
+                    <button class="toggle-btn" onclick="switchView('card')">
+                        CARDS
+                    </button>
+                </div>
             </div>
 
-            <!-- Navigation controls -->
-            <div class="navigation">
-                <button id="prev-btn" class="nav-btn" disabled>
-                    &#8592; Previous
-                </button>
-                <p id="row-counter">Row 0</p>
-                <button id="next-btn" class="nav-btn">Next &#8594;</button>
+            <div class="controls">
+                <select id="columnFilter">
+                    <option value="">FILTER COLUMN</option>
+                </select>
+                <select id="valueFilter" disabled>
+                    <option value="">FILTER VALUE</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="SEARCH..." />
+                <button onclick="applyFilters()">APPLY</button>
+                <button onclick="clearFilters()">CLEAR</button>
             </div>
-            <hr />
-            <div class="navigation-goto">
-                <input id="goto" value="" type="number" class="nav-input" />
-                <button id="goto-btn" class="nav-btn" disabled>
-                    GOTO &#8594;
-                </button>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Total</div>
+                    <div class="stat-value" id="totalRows">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Filtered</div>
+                    <div class="stat-value" id="filteredRows">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Current</div>
+                    <div class="stat-value" id="currentIndex">-</div>
+                </div>
+            </div>
+
+            <div id="messageArea"></div>
+
+            <!-- Table View -->
+            <div class="table-view" id="tableView">
+                <div class="table-container" id="tableContainer">
+                    <div class="loading">LOADING...</div>
+                </div>
+            </div>
+
+            <!-- Card View -->
+            <div class="card-view" id="cardView">
+                <div class="card-container">
+                    <div class="card-nav" id="cardNav"></div>
+                    <div class="card-content" id="cardContent">
+                        <div class="loading">SELECT A CARD</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Config Modal -->
+            <div class="modal" id="configModal">
+                <div class="modal-content">
+                    <div class="modal-header">CARD FIELD VISIBILITY</div>
+                    <div id="fieldToggles"></div>
+                    <div class="modal-footer">
+                        <button onclick="saveFieldConfig()">SAVE</button>
+                        <button onclick="closeConfigModal()">CANCEL</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Link to the JavaScript file -->
-        <!-- 'defer' ensures the script runs after the HTML is parsed -->
-        <script
-            src="{{ url_for('static', filename='js/script.js') }}"
-            defer
-        ></script>
+        <script>
+            let allData = [];
+            let filteredData = [];
+            let headers = [];
+            let remarkColumns = [];
+            let filterOptions = {};
+            let currentView = "table";
+            let currentCardIndex = -1;
+            let currentFilePath = "";
+            let sidebarVisible = true;
+            let visibleFields = {};
+
+            // Cookie helper functions
+            function setCookie(name, value, days = 365) {
+                const expires = new Date();
+                expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+                document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+            }
+
+            function getCookie(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(";");
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) === " ") c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0)
+                        return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function getFileHash() {
+                // Simple hash function for file path
+                let hash = 0;
+                const str = currentFilePath || window.location.pathname;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = (hash << 5) - hash + char;
+                    hash = hash & hash;
+                }
+                return Math.abs(hash).toString(36);
+            }
+
+            function saveLastVisited(index) {
+                const fileHash = getFileHash();
+                setCookie(`last_visited_${fileHash}`, index);
+            }
+
+            function getLastVisited() {
+                const fileHash = getFileHash();
+                const lastVisited = getCookie(`last_visited_${fileHash}`);
+                return lastVisited ? parseInt(lastVisited) : -1;
+            }
+
+            function saveSidebarState(visible) {
+                const fileHash = getFileHash();
+                setCookie(`sidebar_${fileHash}`, visible ? "1" : "0");
+            }
+
+            function getSidebarState() {
+                const fileHash = getFileHash();
+                const state = getCookie(`sidebar_${fileHash}`);
+                return state === null ? true : state === "1";
+            }
+
+            function saveFieldVisibility(fields) {
+                const fileHash = getFileHash();
+                setCookie(`fields_${fileHash}`, JSON.stringify(fields));
+            }
+
+            function getFieldVisibility() {
+                const fileHash = getFileHash();
+                const fields = getCookie(`fields_${fileHash}`);
+                return fields ? JSON.parse(fields) : {};
+            }
+
+            function initializeFieldVisibility() {
+                visibleFields = getFieldVisibility();
+                // If no saved config, show all fields by default
+                if (Object.keys(visibleFields).length === 0) {
+                    headers.forEach((header) => {
+                        visibleFields[header] = true;
+                    });
+                }
+            }
+
+            async function init() {
+                await loadHeaders();
+                await loadFilterOptions();
+                await loadData();
+
+                // Initialize field visibility
+                initializeFieldVisibility();
+
+                // Restore sidebar state
+                sidebarVisible = getSidebarState();
+
+                // Restore last visited card if in card view
+                const lastVisited = getLastVisited();
+                if (
+                    lastVisited >= 0 &&
+                    filteredData.length > 0 &&
+                    lastVisited < filteredData.length
+                ) {
+                    currentCardIndex = lastVisited;
+                }
+            }
+
+            async function loadHeaders() {
+                try {
+                    const response = await fetch("/api/headers");
+                    const data = await response.json();
+                    headers = data.headers;
+                    remarkColumns = data.remark_columns || [];
+                    populateColumnFilter();
+                } catch (error) {
+                    showMessage("ERROR LOADING HEADERS", "error");
+                }
+            }
+
+            async function loadFilterOptions() {
+                try {
+                    const response = await fetch("/api/filter-options");
+                    filterOptions = await response.json();
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            function populateColumnFilter() {
+                const columnFilter = document.getElementById("columnFilter");
+                columnFilter.innerHTML =
+                    '<option value="">FILTER COLUMN</option>';
+                headers.forEach((header) => {
+                    const option = document.createElement("option");
+                    option.value = header;
+                    option.textContent = header.toUpperCase();
+                    columnFilter.appendChild(option);
+                });
+
+                columnFilter.addEventListener("change", function () {
+                    const valueFilter = document.getElementById("valueFilter");
+                    valueFilter.innerHTML =
+                        '<option value="">FILTER VALUE</option>';
+
+                    if (this.value) {
+                        valueFilter.disabled = false;
+                        const values = filterOptions[this.value] || [];
+                        values.forEach((value) => {
+                            const option = document.createElement("option");
+                            option.value = value;
+                            option.textContent = value.toUpperCase();
+                            valueFilter.appendChild(option);
+                        });
+                    } else {
+                        valueFilter.disabled = true;
+                    }
+                });
+            }
+
+            async function loadData(filters = {}) {
+                try {
+                    let url = "/api/data";
+                    const params = new URLSearchParams();
+
+                    if (filters.column) params.append("column", filters.column);
+                    if (filters.value) params.append("value", filters.value);
+                    if (filters.search) params.append("search", filters.search);
+
+                    if (params.toString()) url += "?" + params.toString();
+
+                    const response = await fetch(url);
+                    const result = await response.json();
+
+                    filteredData = result.data || [];
+                    remarkColumns = result.remark_columns || [];
+
+                    if (currentView === "table") {
+                        renderTable(filteredData);
+                    } else {
+                        renderCards(filteredData);
+                        if (
+                            currentCardIndex >= 0 &&
+                            currentCardIndex < filteredData.length
+                        ) {
+                            showCard(currentCardIndex);
+                        }
+                    }
+
+                    updateStats(result.total || 0);
+                } catch (error) {
+                    showMessage("ERROR LOADING DATA", "error");
+                }
+            }
+
+            function renderTable(data) {
+                const container = document.getElementById("tableContainer");
+
+                if (data.length === 0) {
+                    container.innerHTML = '<div class="loading">NO DATA</div>';
+                    return;
+                }
+
+                let html = "<table><thead><tr>";
+
+                headers.forEach((header) => {
+                    html += `<th>${header.toUpperCase()}</th>`;
+                });
+
+                remarkColumns.forEach((col) => {
+                    html += `<th>${col.toUpperCase()}</th>`;
+                });
+
+                html += "<th>ACTIONS</th></tr></thead><tbody>";
+
+                data.forEach((row, idx) => {
+                    html += "<tr>";
+                    headers.forEach((header) => {
+                        html += `<td>${row[header] || ""}</td>`;
+                    });
+
+                    remarkColumns.forEach((col) => {
+                        html += `<td>${row[col] || ""}</td>`;
+                    });
+
+                    html += `<td><button onclick="openCardFromTable(${idx})">CARD</button></td>`;
+                    html += "</tr>";
+                });
+
+                html += "</tbody></table>";
+                container.innerHTML = html;
+            }
+
+            function renderCards(data) {
+                const nav = document.getElementById("cardNav");
+                nav.innerHTML = "";
+
+                data.forEach((row, idx) => {
+                    const item = document.createElement("div");
+                    item.className = "card-nav-item";
+                    item.textContent = `${idx + 1}. ${row[headers[0]] || "ROW " + (idx + 1)}`;
+                    item.onclick = () => showCard(idx);
+                    nav.appendChild(item);
+                });
+            }
+
+            function showCard(index) {
+                currentCardIndex = index;
+                const row = filteredData[index];
+                const content = document.getElementById("cardContent");
+
+                // Save to cookie
+                saveLastVisited(index);
+
+                // Update nav selection
+                document
+                    .querySelectorAll(".card-nav-item")
+                    .forEach((item, idx) => {
+                        item.classList.toggle("active", idx === index);
+                    });
+
+                let html = '<div class="card">';
+
+                // Add header with controls
+                html += `
+                <div class="card-header">
+                    <div class="card-title">CARD ${index + 1} OF ${filteredData.length}</div>
+                    <div class="card-header-controls">
+                        <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
+                            ${sidebarVisible ? "HIDE" : "SHOW"} SIDEBAR
+                        </button>
+                        <button class="config-btn" onclick="openConfigModal()">FIELDS</button>
+                        <button class="close-card-btn" onclick="closeCardView()">CLOSE</button>
+                    </div>
+                </div>
+            `;
+
+                headers.forEach((header) => {
+                    const isVisible = visibleFields[header] !== false;
+                    html += `
+                    <div class="card-row ${isVisible ? "" : "hidden"}" data-field="${header}">
+                        <div class="card-label">${header}</div>
+                        <div class="card-value">${row[header] || "-"}</div>
+                    </div>
+                `;
+                });
+
+                html += `
+                <div class="card-remarks">
+                    <div class="card-remarks-title">REMARKS</div>
+                    <div class="remark-input-wrapper">
+                        <input type="text" class="remark-input" id="cardRemarkInput"
+                               placeholder="value1, value2, value3...">
+                        <button onclick="saveCardRemark()">SAVE</button>
+                    </div>
+            `;
+
+                if (remarkColumns.length > 0) {
+                    html += '<div class="remark-values">';
+                    remarkColumns.forEach((col) => {
+                        const value = row[col] || "";
+                        if (value) {
+                            html += `
+                            <div class="remark-tag">
+                                ${col}: ${value}
+                            </div>
+                        `;
+                        }
+                    });
+                    html += "</div>";
+
+                    // Show timestamp if available
+                    if (row._timestamp) {
+                        html += `<div class="remark-meta">LAST MODIFIED: ${row._timestamp}</div>`;
+                    }
+                }
+
+                html += `
+                </div>
+                <div class="card-navigation">
+                    <button onclick="navigateCard(-1)" ${index === 0 ? "disabled" : ""}>← PREV</button>
+                    <button onclick="navigateCard(1)" ${index === filteredData.length - 1 ? "disabled" : ""}>NEXT →</button>
+                </div>
+            `;
+
+                html += "</div>";
+                content.innerHTML = html;
+
+                document.getElementById("currentIndex").textContent = index + 1;
+
+                // Apply sidebar state
+                applySidebarState();
+            }
+
+            async function saveCardRemark() {
+                const input = document.getElementById("cardRemarkInput");
+                const remark = input.value.trim();
+
+                if (!remark) {
+                    showMessage("ENTER REMARK VALUES", "error");
+                    return;
+                }
+
+                const row = filteredData[currentCardIndex];
+                const rowIndex = row._index;
+
+                try {
+                    const response = await fetch(`/api/remarks/${rowIndex}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ remark }),
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showMessage("SAVED", "success");
+                        input.value = "";
+                        await loadData();
+                    } else {
+                        showMessage("SAVE FAILED", "error");
+                    }
+                } catch (error) {
+                    showMessage("ERROR: " + error.message, "error");
+                }
+            }
+
+            function navigateCard(direction) {
+                const newIndex = currentCardIndex + direction;
+                if (newIndex >= 0 && newIndex < filteredData.length) {
+                    showCard(newIndex);
+                }
+            }
+
+            function openCardFromTable(index) {
+                currentCardIndex = index;
+                switchView("card");
+                showCard(index);
+            }
+
+            function closeCardView() {
+                switchView("table");
+            }
+
+            function toggleSidebar() {
+                sidebarVisible = !sidebarVisible;
+                saveSidebarState(sidebarVisible);
+                applySidebarState();
+
+                // Update button text
+                const btn = document.querySelector(".toggle-sidebar-btn");
+                if (btn) {
+                    btn.textContent = sidebarVisible
+                        ? "HIDE SIDEBAR"
+                        : "SHOW SIDEBAR";
+                }
+            }
+
+            function applySidebarState() {
+                const nav = document.getElementById("cardNav");
+                const content = document.getElementById("cardContent");
+
+                if (sidebarVisible) {
+                    nav.classList.remove("hidden");
+                    content.classList.remove("full-width");
+                } else {
+                    nav.classList.add("hidden");
+                    content.classList.add("full-width");
+                }
+            }
+
+            function openConfigModal() {
+                const modal = document.getElementById("configModal");
+                const togglesContainer =
+                    document.getElementById("fieldToggles");
+
+                togglesContainer.innerHTML = "";
+
+                headers.forEach((header) => {
+                    const isChecked = visibleFields[header] !== false;
+                    const div = document.createElement("div");
+                    div.className = "field-toggle";
+                    div.innerHTML = `
+                    <input type="checkbox" id="field_${header}" ${isChecked ? "checked" : ""}>
+                    <label for="field_${header}">${header}</label>
+                `;
+                    togglesContainer.appendChild(div);
+
+                    // Make the whole div clickable
+                    div.onclick = function (e) {
+                        if (e.target.tagName !== "INPUT") {
+                            const checkbox = div.querySelector("input");
+                            checkbox.checked = !checkbox.checked;
+                        }
+                    };
+                });
+
+                modal.classList.add("active");
+            }
+
+            function closeConfigModal() {
+                const modal = document.getElementById("configModal");
+                modal.classList.remove("active");
+            }
+
+            function saveFieldConfig() {
+                headers.forEach((header) => {
+                    const checkbox = document.getElementById(`field_${header}`);
+                    visibleFields[header] = checkbox.checked;
+                });
+
+                saveFieldVisibility(visibleFields);
+                closeConfigModal();
+
+                // Refresh current card
+                if (currentCardIndex >= 0) {
+                    showCard(currentCardIndex);
+                }
+            }
+
+            function switchView(view) {
+                currentView = view;
+
+                document.querySelectorAll(".toggle-btn").forEach((btn) => {
+                    btn.classList.remove("active");
+                });
+
+                if (view === "table") {
+                    document
+                        .getElementById("tableView")
+                        .classList.remove("hidden");
+                    document
+                        .getElementById("cardView")
+                        .classList.remove("active");
+                    document
+                        .querySelectorAll(".toggle-btn")[0]
+                        .classList.add("active");
+                    document.getElementById("currentIndex").textContent = "-";
+                } else {
+                    document
+                        .getElementById("tableView")
+                        .classList.add("hidden");
+                    document.getElementById("cardView").classList.add("active");
+                    document
+                        .querySelectorAll(".toggle-btn")[1]
+                        .classList.add("active");
+                    renderCards(filteredData);
+
+                    // Try to restore last visited or use current index
+                    const lastVisited = getLastVisited();
+                    if (lastVisited >= 0 && lastVisited < filteredData.length) {
+                        showCard(lastVisited);
+                    } else if (
+                        currentCardIndex >= 0 &&
+                        currentCardIndex < filteredData.length
+                    ) {
+                        showCard(currentCardIndex);
+                    } else if (filteredData.length > 0) {
+                        showCard(0);
+                    }
+                }
+            }
+
+            function applyFilters() {
+                const column = document.getElementById("columnFilter").value;
+                const value = document.getElementById("valueFilter").value;
+                const search = document.getElementById("searchInput").value;
+
+                const filters = {};
+                if (column) filters.column = column;
+                if (value) filters.value = value;
+                if (search) filters.search = search;
+
+                loadData(filters);
+            }
+
+            function clearFilters() {
+                document.getElementById("columnFilter").value = "";
+                document.getElementById("valueFilter").value = "";
+                document.getElementById("valueFilter").disabled = true;
+                document.getElementById("searchInput").value = "";
+                loadData();
+            }
+
+            function updateStats(filteredCount) {
+                document.getElementById("filteredRows").textContent =
+                    filteredCount;
+            }
+
+            function showMessage(message, type) {
+                const messageArea = document.getElementById("messageArea");
+                const div = document.createElement("div");
+                div.className = `message ${type}`;
+                div.textContent = message;
+                messageArea.innerHTML = "";
+                messageArea.appendChild(div);
+
+                setTimeout(() => {
+                    messageArea.innerHTML = "";
+                }, 3000);
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document
+                    .getElementById("searchInput")
+                    .addEventListener("keypress", function (e) {
+                        if (e.key === "Enter") applyFilters();
+                    });
+
+                // ESC key to close card view
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        const modal = document.getElementById("configModal");
+                        if (modal.classList.contains("active")) {
+                            closeConfigModal();
+                        } else if (currentView === "card") {
+                            closeCardView();
+                        }
+                    }
+                });
+
+                // Arrow keys for navigation in card view
+                document.addEventListener("keydown", function (e) {
+                    if (
+                        currentView === "card" &&
+                        !document
+                            .getElementById("configModal")
+                            .classList.contains("active")
+                    ) {
+                        if (e.key === "ArrowLeft" && currentCardIndex > 0) {
+                            navigateCard(-1);
+                        } else if (
+                            e.key === "ArrowRight" &&
+                            currentCardIndex < filteredData.length - 1
+                        ) {
+                            navigateCard(1);
+                        }
+                    }
+                });
+
+                fetch("/api/data")
+                    .then((r) => r.json())
+                    .then((result) => {
+                        document.getElementById("totalRows").textContent =
+                            result.total || 0;
+                    });
+
+                init();
+            });
+        </script>
     </body>
 </html>
