@@ -39,12 +39,13 @@
                 padding: 15px;
                 background: #fff;
                 border: 1px solid #e0e0e0;
+                border-radius: 12px;
             }
 
             .title {
                 font-size: 16px;
                 font-weight: 500;
-                color: #1a1a1a;
+                color: #1e40af;
             }
 
             .view-toggle {
@@ -61,17 +62,19 @@
                 transition: all 0.2s;
                 font-family: "Roboto Mono", monospace;
                 font-size: 12px;
+                border-radius: 20px;
             }
 
             .toggle-btn:hover {
-                background: #f5f5f5;
-                color: #1a1a1a;
+                background: #dbeafe;
+                color: #1e40af;
+                border-color: #93c5fd;
             }
 
             .toggle-btn.active {
-                background: #1a1a1a;
+                background: #1e40af;
                 color: #fff;
-                border-color: #1a1a1a;
+                border-color: #1e40af;
             }
 
             .controls {
@@ -82,6 +85,7 @@
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 flex-wrap: wrap;
+                border-radius: 12px;
             }
 
             input,
@@ -94,12 +98,14 @@
                 font-size: 12px;
                 flex: 1;
                 min-width: 150px;
+                border-radius: 20px;
             }
 
             input:focus,
             select:focus {
                 outline: none;
-                border-color: #999;
+                border-color: #1e40af;
+                box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
             }
 
             button {
@@ -111,11 +117,13 @@
                 font-family: "Roboto Mono", monospace;
                 font-size: 12px;
                 transition: all 0.2s;
+                border-radius: 20px;
             }
 
             button:hover {
-                background: #f5f5f5;
-                border-color: #999;
+                background: #dbeafe;
+                border-color: #93c5fd;
+                color: #1e40af;
             }
 
             button:disabled {
@@ -134,11 +142,12 @@
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 flex: 1;
+                border-radius: 12px;
             }
 
             .stat-label {
                 font-size: 10px;
-                color: #999;
+                color: #1e40af;
                 text-transform: uppercase;
                 margin-bottom: 5px;
             }
@@ -161,6 +170,7 @@
                 overflow-x: auto;
                 background: #fff;
                 border: 1px solid #e0e0e0;
+                border-radius: 12px;
             }
 
             table {
@@ -170,13 +180,13 @@
 
             th {
                 padding: 12px;
-                background: #f5f5f5;
+                background: #dbeafe;
                 border-bottom: 1px solid #e0e0e0;
                 text-align: left;
                 font-weight: 500;
                 font-size: 11px;
                 text-transform: uppercase;
-                color: #666;
+                color: #1e40af;
                 position: sticky;
                 top: 0;
             }
@@ -188,7 +198,7 @@
             }
 
             tbody tr:hover {
-                background: #fafafa;
+                background: #dbeafe;
             }
 
             /* Card View */
@@ -215,32 +225,37 @@
             .card-nav {
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
                 padding: 15px;
                 background: #fff;
                 border-right: 1px solid #e0e0e0;
-                min-width: 250px;
-                max-width: 250px;
+                min-width: 280px;
+                max-width: 280px;
                 overflow-y: auto;
             }
 
             .card-nav-item {
-                padding: 8px 12px;
+                padding: 10px 14px;
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 cursor: pointer;
                 transition: all 0.2s;
                 font-size: 11px;
+                border-radius: 12px;
             }
 
             .card-nav-item:hover {
-                background: #f5f5f5;
+                background: #dbeafe;
+                border-color: #93c5fd;
+                color: #1e40af;
             }
 
             .card-nav-item.active {
-                background: #1a1a1a;
+                background: #1e40af;
                 color: #fff;
-                border-color: #1a1a1a;
+                border-color: #1e40af;
+                font-weight: 500;
+                box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
             }
 
             .card-content {
@@ -262,13 +277,13 @@
                 align-items: center;
                 margin-bottom: 30px;
                 padding-bottom: 20px;
-                border-bottom: 2px solid #e0e0e0;
+                border-bottom: 2px solid #93c5fd;
             }
 
             .card-title {
                 font-size: 14px;
                 font-weight: 500;
-                color: #1a1a1a;
+                color: #1e40af;
                 text-transform: uppercase;
             }
 
@@ -287,22 +302,25 @@
                 cursor: pointer;
                 font-family: "Roboto Mono", monospace;
                 font-size: 12px;
+                border-radius: 20px;
             }
 
             .close-card-btn {
-                background: #1a1a1a;
+                background: #1e40af;
                 color: #fff;
-                border-color: #1a1a1a;
-            }
-
-            .close-card-btn:hover,
-            .toggle-sidebar-btn:hover,
-            .config-btn:hover {
-                background: #f5f5f5;
+                border-color: #1e40af;
             }
 
             .close-card-btn:hover {
-                background: #333;
+                background: #1e3a8a;
+                border-color: #1e3a8a;
+            }
+
+            .toggle-sidebar-btn:hover,
+            .config-btn:hover {
+                background: #dbeafe;
+                border-color: #93c5fd;
+                color: #1e40af;
             }
 
             .card-nav.hidden {
@@ -339,6 +357,7 @@
                 width: 90%;
                 max-height: 80vh;
                 overflow-y: auto;
+                border-radius: 16px;
             }
 
             .modal-header {
@@ -347,7 +366,45 @@
                 text-transform: uppercase;
                 margin-bottom: 20px;
                 padding-bottom: 15px;
-                border-bottom: 2px solid #e0e0e0;
+                border-bottom: 2px solid #93c5fd;
+                color: #1e40af;
+            }
+
+            .config-section {
+                margin-bottom: 20px;
+            }
+
+            .config-section-title {
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #1e40af;
+                margin-bottom: 10px;
+                font-weight: 500;
+            }
+
+            .sidebar-display-select {
+                width: 100%;
+                padding: 10px 12px;
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+                background: #fff;
+                cursor: pointer;
+            }
+
+            .sidebar-display-select:focus {
+                outline: none;
+                border-color: #1e40af;
+                box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+            }
+
+            .field-toggles-container {
+                max-height: 300px;
+                overflow-y: auto;
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+                padding: 10px;
             }
 
             .field-toggle {
@@ -358,15 +415,24 @@
                 border: 1px solid #e0e0e0;
                 cursor: pointer;
                 transition: background 0.2s;
+                border-radius: 12px;
+            }
+
+            .field-toggle:last-child {
+                margin-bottom: 0;
             }
 
             .field-toggle:hover {
-                background: #fafafa;
+                background: #dbeafe;
+                border-color: #93c5fd;
             }
 
             .field-toggle input[type="checkbox"] {
                 margin-right: 10px;
                 cursor: pointer;
+                accent-color: #1e40af;
+                width: 16px;
+                height: 16px;
             }
 
             .field-toggle label {
@@ -383,6 +449,17 @@
                 border-top: 1px solid #e0e0e0;
             }
 
+            .modal-footer button:first-child {
+                background: #1e40af;
+                color: #fff;
+                border-color: #1e40af;
+            }
+
+            .modal-footer button:first-child:hover {
+                background: #1e3a8a;
+                border-color: #1e3a8a;
+            }
+
             .card-row.hidden {
                 display: none;
             }
@@ -396,7 +473,7 @@
 
             .card-label {
                 min-width: 200px;
-                color: #999;
+                color: #1e40af;
                 font-size: 11px;
                 text-transform: uppercase;
             }
@@ -410,13 +487,13 @@
             .card-remarks {
                 margin-top: 30px;
                 padding-top: 30px;
-                border-top: 2px solid #e0e0e0;
+                border-top: 2px solid #93c5fd;
             }
 
             .card-remarks-title {
                 font-size: 11px;
                 text-transform: uppercase;
-                color: #999;
+                color: #1e40af;
                 margin-bottom: 15px;
             }
 
@@ -434,11 +511,24 @@
                 color: #1a1a1a;
                 font-family: "Roboto Mono", monospace;
                 font-size: 12px;
+                border-radius: 20px;
             }
 
             .remark-input:focus {
                 outline: none;
-                border-color: #999;
+                border-color: #1e40af;
+                box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+            }
+
+            .remark-input-wrapper button {
+                background: #1e40af;
+                color: #fff;
+                border-color: #1e40af;
+            }
+
+            .remark-input-wrapper button:hover {
+                background: #1e3a8a;
+                border-color: #1e3a8a;
             }
 
             .remark-values {
@@ -450,12 +540,14 @@
 
             .remark-tag {
                 padding: 6px 12px;
-                background: #f5f5f5;
-                border: 1px solid #e0e0e0;
+                background: #dbeafe;
+                border: 1px solid #93c5fd;
                 font-size: 11px;
                 display: inline-flex;
                 align-items: center;
                 gap: 8px;
+                border-radius: 20px;
+                color: #1e40af;
             }
 
             .remark-meta {
@@ -478,6 +570,7 @@
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 font-size: 11px;
+                border-radius: 12px;
             }
 
             .message.success {
@@ -495,7 +588,31 @@
             .loading {
                 text-align: center;
                 padding: 40px;
-                color: #999;
+                color: #1e40af;
+            }
+
+            .select-all-controls {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            .select-all-controls button {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+
+            /* Current card indicator in sidebar */
+            .card-nav-header {
+                padding: 10px 14px;
+                background: #dbeafe;
+                border-radius: 12px;
+                margin-bottom: 10px;
+                font-size: 10px;
+                text-transform: uppercase;
+                color: #1e40af;
+                font-weight: 500;
+                text-align: center;
             }
         </style>
     </head>
@@ -565,8 +682,40 @@
             <!-- Config Modal -->
             <div class="modal" id="configModal">
                 <div class="modal-content">
-                    <div class="modal-header">CARD FIELD VISIBILITY</div>
-                    <div id="fieldToggles"></div>
+                    <div class="modal-header">CARD CONFIGURATION</div>
+
+                    <!-- Sidebar Display Column Selection -->
+                    <div class="config-section">
+                        <div class="config-section-title">
+                            Sidebar Display Column
+                        </div>
+                        <select
+                            id="sidebarDisplayColumn"
+                            class="sidebar-display-select"
+                        >
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+
+                    <!-- Field Visibility -->
+                    <div class="config-section">
+                        <div class="config-section-title">
+                            Card Field Visibility
+                        </div>
+                        <div class="select-all-controls">
+                            <button onclick="selectAllFields()">
+                                SELECT ALL
+                            </button>
+                            <button onclick="deselectAllFields()">
+                                DESELECT ALL
+                            </button>
+                        </div>
+                        <div
+                            class="field-toggles-container"
+                            id="fieldToggles"
+                        ></div>
+                    </div>
+
                     <div class="modal-footer">
                         <button onclick="saveFieldConfig()">SAVE</button>
                         <button onclick="closeConfigModal()">CANCEL</button>
@@ -586,6 +735,7 @@
             let currentFilePath = "";
             let sidebarVisible = true;
             let visibleFields = {};
+            let sidebarDisplayColumn = "";
 
             // Cookie helper functions
             function setCookie(name, value, days = 365) {
@@ -607,7 +757,6 @@
             }
 
             function getFileHash() {
-                // Simple hash function for file path
                 let hash = 0;
                 const str = currentFilePath || window.location.pathname;
                 for (let i = 0; i < str.length; i++) {
@@ -651,13 +800,31 @@
                 return fields ? JSON.parse(fields) : {};
             }
 
+            function saveSidebarDisplayColumn(column) {
+                const fileHash = getFileHash();
+                setCookie(`sidebar_col_${fileHash}`, column);
+            }
+
+            function getSidebarDisplayColumn() {
+                const fileHash = getFileHash();
+                return getCookie(`sidebar_col_${fileHash}`) || "";
+            }
+
             function initializeFieldVisibility() {
                 visibleFields = getFieldVisibility();
-                // If no saved config, show all fields by default
                 if (Object.keys(visibleFields).length === 0) {
                     headers.forEach((header) => {
                         visibleFields[header] = true;
                     });
+                }
+            }
+
+            function initializeSidebarDisplayColumn() {
+                const saved = getSidebarDisplayColumn();
+                if (saved && headers.includes(saved)) {
+                    sidebarDisplayColumn = saved;
+                } else if (headers.length > 0) {
+                    sidebarDisplayColumn = headers[0];
                 }
             }
 
@@ -666,13 +833,10 @@
                 await loadFilterOptions();
                 await loadData();
 
-                // Initialize field visibility
                 initializeFieldVisibility();
-
-                // Restore sidebar state
+                initializeSidebarDisplayColumn();
                 sidebarVisible = getSidebarState();
 
-                // Restore last visited card if in card view
                 const lastVisited = getLastVisited();
                 if (
                     lastVisited >= 0 &&
@@ -812,11 +976,29 @@
                 const nav = document.getElementById("cardNav");
                 nav.innerHTML = "";
 
+                // Add header showing current selection info
+                const headerDiv = document.createElement("div");
+                headerDiv.className = "card-nav-header";
+                headerDiv.id = "cardNavHeader";
+                headerDiv.textContent = `Showing: ${sidebarDisplayColumn || headers[0] || "Items"}`;
+                nav.appendChild(headerDiv);
+
+                const displayColumn = sidebarDisplayColumn || headers[0] || "";
+
                 data.forEach((row, idx) => {
                     const item = document.createElement("div");
                     item.className = "card-nav-item";
-                    item.textContent = `${idx + 1}. ${row[headers[0]] || "ROW " + (idx + 1)}`;
+                    item.id = `card-nav-item-${idx}`;
+                    const displayValue =
+                        row[displayColumn] || "ROW " + (idx + 1);
+                    item.textContent = `${idx + 1}. ${displayValue}`;
                     item.onclick = () => showCard(idx);
+
+                    // Mark as active if this is the current card
+                    if (idx === currentCardIndex) {
+                        item.classList.add("active");
+                    }
+
                     nav.appendChild(item);
                 });
             }
@@ -826,19 +1008,29 @@
                 const row = filteredData[index];
                 const content = document.getElementById("cardContent");
 
-                // Save to cookie
                 saveLastVisited(index);
 
-                // Update nav selection
+                // Update nav selection and scroll to active item
                 document
                     .querySelectorAll(".card-nav-item")
                     .forEach((item, idx) => {
                         item.classList.toggle("active", idx === index);
                     });
 
+                // Scroll the active item into view
+                const activeItem = document.getElementById(
+                    `card-nav-item-${index}`,
+                );
+                if (activeItem) {
+                    activeItem.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest",
+                        inline: "nearest",
+                    });
+                }
+
                 let html = '<div class="card">';
 
-                // Add header with controls
                 html += `
                 <div class="card-header">
                     <div class="card-title">CARD ${index + 1} OF ${filteredData.length}</div>
@@ -846,7 +1038,7 @@
                         <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
                             ${sidebarVisible ? "HIDE" : "SHOW"} SIDEBAR
                         </button>
-                        <button class="config-btn" onclick="openConfigModal()">FIELDS</button>
+                        <button class="config-btn" onclick="openConfigModal()">CONFIG</button>
                         <button class="close-card-btn" onclick="closeCardView()">CLOSE</button>
                     </div>
                 </div>
@@ -886,7 +1078,6 @@
                     });
                     html += "</div>";
 
-                    // Show timestamp if available
                     if (row._timestamp) {
                         html += `<div class="remark-meta">LAST MODIFIED: ${row._timestamp}</div>`;
                     }
@@ -905,7 +1096,6 @@
 
                 document.getElementById("currentIndex").textContent = index + 1;
 
-                // Apply sidebar state
                 applySidebarState();
             }
 
@@ -964,7 +1154,6 @@
                 saveSidebarState(sidebarVisible);
                 applySidebarState();
 
-                // Update button text
                 const btn = document.querySelector(".toggle-sidebar-btn");
                 if (btn) {
                     btn.textContent = sidebarVisible
@@ -988,9 +1177,24 @@
 
             function openConfigModal() {
                 const modal = document.getElementById("configModal");
+
+                const sidebarSelect = document.getElementById(
+                    "sidebarDisplayColumn",
+                );
+                sidebarSelect.innerHTML = "";
+
+                headers.forEach((header) => {
+                    const option = document.createElement("option");
+                    option.value = header;
+                    option.textContent = header.toUpperCase();
+                    if (header === sidebarDisplayColumn) {
+                        option.selected = true;
+                    }
+                    sidebarSelect.appendChild(option);
+                });
+
                 const togglesContainer =
                     document.getElementById("fieldToggles");
-
                 togglesContainer.innerHTML = "";
 
                 headers.forEach((header) => {
@@ -1003,7 +1207,6 @@
                 `;
                     togglesContainer.appendChild(div);
 
-                    // Make the whole div clickable
                     div.onclick = function (e) {
                         if (e.target.tagName !== "INPUT") {
                             const checkbox = div.querySelector("input");
@@ -1015,12 +1218,32 @@
                 modal.classList.add("active");
             }
 
+            function selectAllFields() {
+                headers.forEach((header) => {
+                    const checkbox = document.getElementById(`field_${header}`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+
+            function deselectAllFields() {
+                headers.forEach((header) => {
+                    const checkbox = document.getElementById(`field_${header}`);
+                    if (checkbox) checkbox.checked = false;
+                });
+            }
+
             function closeConfigModal() {
                 const modal = document.getElementById("configModal");
                 modal.classList.remove("active");
             }
 
             function saveFieldConfig() {
+                const sidebarSelect = document.getElementById(
+                    "sidebarDisplayColumn",
+                );
+                sidebarDisplayColumn = sidebarSelect.value;
+                saveSidebarDisplayColumn(sidebarDisplayColumn);
+
                 headers.forEach((header) => {
                     const checkbox = document.getElementById(`field_${header}`);
                     visibleFields[header] = checkbox.checked;
@@ -1029,7 +1252,8 @@
                 saveFieldVisibility(visibleFields);
                 closeConfigModal();
 
-                // Refresh current card
+                renderCards(filteredData);
+
                 if (currentCardIndex >= 0) {
                     showCard(currentCardIndex);
                 }
@@ -1063,7 +1287,6 @@
                         .classList.add("active");
                     renderCards(filteredData);
 
-                    // Try to restore last visited or use current index
                     const lastVisited = getLastVisited();
                     if (lastVisited >= 0 && lastVisited < filteredData.length) {
                         showCard(lastVisited);
@@ -1124,7 +1347,6 @@
                         if (e.key === "Enter") applyFilters();
                     });
 
-                // ESC key to close card view
                 document.addEventListener("keydown", function (e) {
                     if (e.key === "Escape") {
                         const modal = document.getElementById("configModal");
@@ -1136,7 +1358,6 @@
                     }
                 });
 
-                // Arrow keys for navigation in card view
                 document.addEventListener("keydown", function (e) {
                     if (
                         currentView === "card" &&
