@@ -201,6 +201,16 @@
                 background: #dbeafe;
             }
 
+            /* Last visited row highlighting */
+            tbody tr.last-visited {
+                background: #fef3c7;
+                border-left: 4px solid #f59e0b;
+            }
+
+            tbody tr.last-visited:hover {
+                background: #fde68a;
+            }
+
             /* Card View */
             .card-view {
                 display: none;
@@ -278,6 +288,8 @@
                 margin-bottom: 30px;
                 padding-bottom: 20px;
                 border-bottom: 2px solid #93c5fd;
+                flex-wrap: wrap;
+                gap: 10px;
             }
 
             .card-title {
@@ -290,6 +302,7 @@
             .card-header-controls {
                 display: flex;
                 gap: 10px;
+                flex-wrap: wrap;
             }
 
             .close-card-btn,
@@ -353,11 +366,15 @@
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 padding: 30px;
-                max-width: 500px;
+                max-width: 700px;
                 width: 90%;
-                max-height: 80vh;
+                max-height: 85vh;
                 overflow-y: auto;
                 border-radius: 16px;
+            }
+
+            .modal-content.wide {
+                max-width: 900px;
             }
 
             .modal-header {
@@ -368,6 +385,48 @@
                 padding-bottom: 15px;
                 border-bottom: 2px solid #93c5fd;
                 color: #1e40af;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .modal-tabs {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 20px;
+                border-bottom: 1px solid #e0e0e0;
+                padding-bottom: 10px;
+                flex-wrap: wrap;
+            }
+
+            .modal-tab {
+                padding: 8px 16px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+
+            .modal-tab:hover {
+                background: #dbeafe;
+                border-color: #93c5fd;
+                color: #1e40af;
+            }
+
+            .modal-tab.active {
+                background: #1e40af;
+                color: #fff;
+                border-color: #1e40af;
+            }
+
+            .tab-content {
+                display: none;
+            }
+
+            .tab-content.active {
+                display: block;
             }
 
             .config-section {
@@ -562,6 +621,7 @@
                 margin-top: 30px;
                 padding-top: 20px;
                 border-top: 1px solid #f0f0f0;
+                flex-wrap: wrap;
             }
 
             .message {
@@ -585,6 +645,12 @@
                 background: #ffebee;
             }
 
+            .message.warning {
+                border-color: #ff9800;
+                color: #e65100;
+                background: #fff3e0;
+            }
+
             .loading {
                 text-align: center;
                 padding: 40px;
@@ -602,7 +668,6 @@
                 font-size: 11px;
             }
 
-            /* Current card indicator in sidebar */
             .card-nav-header {
                 padding: 10px 14px;
                 background: #dbeafe;
@@ -613,6 +678,250 @@
                 color: #1e40af;
                 font-weight: 500;
                 text-align: center;
+            }
+
+            /* Custom Scripts Styles */
+            .scripts-list {
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+                max-height: 300px;
+                overflow-y: auto;
+            }
+
+            .script-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 15px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .script-item:last-child {
+                border-bottom: none;
+            }
+
+            .script-item-info {
+                flex: 1;
+            }
+
+            .script-item-name {
+                font-weight: 500;
+                color: #1e40af;
+                font-size: 12px;
+            }
+
+            .script-item-meta {
+                font-size: 10px;
+                color: #666;
+                margin-top: 4px;
+            }
+
+            .script-item-actions {
+                display: flex;
+                gap: 8px;
+            }
+
+            .script-item-actions button {
+                padding: 4px 10px;
+                font-size: 10px;
+            }
+
+            .add-script-btn {
+                margin-top: 10px;
+                background: #1e40af;
+                color: #fff;
+                border-color: #1e40af;
+            }
+
+            .add-script-btn:hover {
+                background: #1e3a8a;
+                border-color: #1e3a8a;
+            }
+
+            /* Script Editor Modal */
+            .script-form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .script-form-row {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .script-form-row label {
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #1e40af;
+                font-weight: 500;
+            }
+
+            .script-form-row input,
+            .script-form-row select {
+                flex: none;
+                border-radius: 8px;
+            }
+
+            .script-form-row textarea {
+                width: 100%;
+                min-height: 200px;
+                padding: 12px;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                resize: vertical;
+            }
+
+            .script-form-row textarea:focus {
+                outline: none;
+                border-color: #1e40af;
+                box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+            }
+
+            .script-help {
+                background: #f8fafc;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                padding: 12px;
+                font-size: 11px;
+                color: #666;
+                margin-bottom: 10px;
+            }
+
+            .script-help code {
+                background: #e2e8f0;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-size: 10px;
+            }
+
+            .script-help-title {
+                font-weight: 600;
+                color: #1e40af;
+                margin-bottom: 8px;
+            }
+
+            /* Custom Action Buttons Section */
+            .custom-actions-section {
+                margin-top: 30px;
+                padding-top: 30px;
+                border-top: 2px solid #93c5fd;
+            }
+
+            .custom-actions-title {
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #1e40af;
+                margin-bottom: 15px;
+            }
+
+            .custom-actions-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .custom-action-btn {
+                background: #059669;
+                color: #fff;
+                border-color: #059669;
+            }
+
+            .custom-action-btn:hover {
+                background: #047857;
+                border-color: #047857;
+                color: #fff;
+            }
+
+            .custom-action-btn.header-btn {
+                background: #7c3aed;
+                border-color: #7c3aed;
+            }
+
+            .custom-action-btn.header-btn:hover {
+                background: #6d28d9;
+                border-color: #6d28d9;
+            }
+
+            .custom-action-btn.navigation-btn {
+                background: #ea580c;
+                border-color: #ea580c;
+            }
+
+            .custom-action-btn.navigation-btn:hover {
+                background: #c2410c;
+                border-color: #c2410c;
+            }
+
+            .no-scripts {
+                padding: 20px;
+                text-align: center;
+                color: #999;
+                font-size: 12px;
+            }
+
+            /* Pending Windows Modal */
+            .pending-windows {
+                margin-top: 15px;
+            }
+
+            .pending-window-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 12px;
+                background: #f8fafc;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                margin-bottom: 8px;
+                font-size: 11px;
+            }
+
+            .pending-window-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .pending-window-url {
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-right: 10px;
+                color: #1e40af;
+            }
+
+            .pending-window-item button {
+                padding: 4px 12px;
+                font-size: 10px;
+                background: #1e40af;
+                color: #fff;
+                border-color: #1e40af;
+            }
+
+            .open-all-btn {
+                margin-top: 10px;
+                background: #059669 !important;
+                color: #fff !important;
+                border-color: #059669 !important;
+                width: 100%;
+            }
+
+            .open-all-btn:hover {
+                background: #047857 !important;
+                border-color: #047857 !important;
+            }
+
+            .popup-warning {
+                background: #fef3c7;
+                border: 1px solid #f59e0b;
+                border-radius: 8px;
+                padding: 12px;
+                margin-bottom: 15px;
+                font-size: 11px;
+                color: #92400e;
             }
         </style>
     </head>
@@ -681,44 +990,250 @@
 
             <!-- Config Modal -->
             <div class="modal" id="configModal">
-                <div class="modal-content">
-                    <div class="modal-header">CARD CONFIGURATION</div>
-
-                    <!-- Sidebar Display Column Selection -->
-                    <div class="config-section">
-                        <div class="config-section-title">
-                            Sidebar Display Column
-                        </div>
-                        <select
-                            id="sidebarDisplayColumn"
-                            class="sidebar-display-select"
-                        >
-                            <!-- Options will be populated dynamically -->
-                        </select>
+                <div class="modal-content wide">
+                    <div class="modal-header">
+                        <span>CONFIGURATION</span>
                     </div>
 
-                    <!-- Field Visibility -->
-                    <div class="config-section">
-                        <div class="config-section-title">
-                            Card Field Visibility
+                    <div class="modal-tabs">
+                        <button
+                            class="modal-tab active"
+                            onclick="switchConfigTab('display')"
+                        >
+                            DISPLAY
+                        </button>
+                        <button
+                            class="modal-tab"
+                            onclick="switchConfigTab('fields')"
+                        >
+                            FIELDS
+                        </button>
+                        <button
+                            class="modal-tab"
+                            onclick="switchConfigTab('scripts')"
+                        >
+                            CUSTOM SCRIPTS
+                        </button>
+                    </div>
+
+                    <!-- Display Tab -->
+                    <div class="tab-content active" id="tab-display">
+                        <div class="config-section">
+                            <div class="config-section-title">
+                                Sidebar Display Column
+                            </div>
+                            <select
+                                id="sidebarDisplayColumn"
+                                class="sidebar-display-select"
+                            ></select>
                         </div>
-                        <div class="select-all-controls">
-                            <button onclick="selectAllFields()">
-                                SELECT ALL
-                            </button>
-                            <button onclick="deselectAllFields()">
-                                DESELECT ALL
+                    </div>
+
+                    <!-- Fields Tab -->
+                    <div class="tab-content" id="tab-fields">
+                        <div class="config-section">
+                            <div class="config-section-title">
+                                Card Field Visibility
+                            </div>
+                            <div class="select-all-controls">
+                                <button onclick="selectAllFields()">
+                                    SELECT ALL
+                                </button>
+                                <button onclick="deselectAllFields()">
+                                    DESELECT ALL
+                                </button>
+                            </div>
+                            <div
+                                class="field-toggles-container"
+                                id="fieldToggles"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- Scripts Tab -->
+                    <div class="tab-content" id="tab-scripts">
+                        <div class="config-section">
+                            <div class="config-section-title">
+                                Custom Action Scripts
+                            </div>
+                            <div class="script-help">
+                                <div class="script-help-title">
+                                    Available Variables & Functions:
+                                </div>
+                                <code>data</code> - Current card data object<br />
+                                <code>allData</code> - All filtered data
+                                array<br />
+                                <code>headers</code> - Column headers array<br />
+                                <code>index</code> - Current card index<br /><br />
+                                <code>openWindow(url)</code> - Open URL in new
+                                tab<br />
+                                <code>openWindows([url1, url2, ...])</code> -
+                                Open multiple URLs<br />
+                                <code>googleSearch(query)</code> - Open Google
+                                search<br />
+                                <code>copyToClipboard(text)</code> - Copy to
+                                clipboard<br />
+                                <code>showAlert(msg)</code> - Show message<br />
+                                <code>getValue(field)</code> - Get field value
+                                safely
+                            </div>
+                            <div class="scripts-list" id="scriptsList">
+                                <div class="no-scripts">
+                                    No custom scripts added
+                                </div>
+                            </div>
+                            <button
+                                class="add-script-btn"
+                                onclick="openScriptEditor()"
+                            >
+                                + ADD SCRIPT
                             </button>
                         </div>
-                        <div
-                            class="field-toggles-container"
-                            id="fieldToggles"
-                        ></div>
                     </div>
 
                     <div class="modal-footer">
                         <button onclick="saveFieldConfig()">SAVE</button>
                         <button onclick="closeConfigModal()">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Script Editor Modal -->
+            <div class="modal" id="scriptEditorModal">
+                <div class="modal-content wide">
+                    <div class="modal-header">
+                        <span id="scriptEditorTitle">ADD CUSTOM SCRIPT</span>
+                    </div>
+
+                    <div class="script-form">
+                        <div class="script-form-row">
+                            <label>Script Name</label>
+                            <input
+                                type="text"
+                                id="scriptName"
+                                placeholder="e.g., Doctor Search"
+                            />
+                        </div>
+
+                        <div class="script-form-row">
+                            <label>Button Label</label>
+                            <input
+                                type="text"
+                                id="scriptButtonLabel"
+                                placeholder="e.g., Search All"
+                            />
+                        </div>
+
+                        <div class="script-form-row">
+                            <label>Button Position</label>
+                            <select id="scriptPosition">
+                                <option value="header">
+                                    Header (Top Right)
+                                </option>
+                                <option value="actions">
+                                    Custom Actions Section
+                                </option>
+                                <option value="navigation">
+                                    Navigation Area
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="script-form-row">
+                            <label>JavaScript Code</label>
+                            <textarea
+                                id="scriptCode"
+                                placeholder="// Your code here..."
+                            ></textarea>
+                        </div>
+
+                        <div class="script-help">
+                            <div class="script-help-title">
+                                Example: Your Doctor Search Script
+                            </div>
+                            <pre
+                                style="
+                                    background: #e2e8f0;
+                                    padding: 10px;
+                                    border-radius: 6px;
+                                    overflow-x: auto;
+                                    font-size: 10px;
+                                "
+                            >
+const name = getValue('Keyword');
+const spec = getValue('Speciality Name');
+const city = getValue('City');
+
+const query1 = `dr ${name}`;
+const query2 = `${query1} ${spec} ${city}`;
+const query3 = `${query2} hexaheath`;
+
+copyToClipboard(name);
+
+// Opens all 3 searches (handles popup blockers)
+openWindows([
+    googleSearch(query1),
+    googleSearch(query2),
+    googleSearch(query3)
+]);</pre
+                            >
+                        </div>
+
+                        <div class="script-help">
+                            <div class="script-help-title">More Examples:</div>
+                            <strong>1. Simple Google Search:</strong><br />
+                            <code>googleSearch(getValue('Name'));</code
+                            ><br /><br />
+                            <strong>2. Open Website from data:</strong><br />
+                            <code>openWindow(getValue('Website'));</code
+                            ><br /><br />
+                            <strong>3. Copy & Search:</strong><br />
+                            <code
+                                >copyToClipboard(getValue('Email'));
+                                showAlert('Copied!');</code
+                            ><br /><br />
+                            <strong>4. LinkedIn Search:</strong><br />
+                            <code
+                                >openWindow('https://linkedin.com/search/results/all/?keywords='
+                                +
+                                encodeURIComponent(getValue('Company')));</code
+                            >
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button onclick="saveScript()">SAVE SCRIPT</button>
+                        <button onclick="closeScriptEditor()">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Windows Modal -->
+            <div class="modal" id="pendingWindowsModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span>OPEN WINDOWS</span>
+                    </div>
+
+                    <div class="popup-warning">
+                        ⚠️ <strong>Popup Blocker Detected!</strong><br />
+                        Your browser blocked some windows. Click each button to
+                        open, or allow popups for this site.
+                    </div>
+
+                    <div class="pending-windows" id="pendingWindowsList"></div>
+
+                    <button
+                        class="open-all-btn"
+                        onclick="openAllPendingWindows()"
+                    >
+                        OPEN ALL WINDOWS
+                    </button>
+
+                    <div class="modal-footer">
+                        <button onclick="closePendingWindowsModal()">
+                            CLOSE
+                        </button>
                     </div>
                 </div>
             </div>
@@ -736,6 +1251,9 @@
             let sidebarVisible = true;
             let visibleFields = {};
             let sidebarDisplayColumn = "";
+            let customScripts = [];
+            let editingScriptIndex = -1;
+            let pendingWindows = [];
 
             // Cookie helper functions
             function setCookie(name, value, days = 365) {
@@ -810,6 +1328,20 @@
                 return getCookie(`sidebar_col_${fileHash}`) || "";
             }
 
+            function saveCustomScripts(scripts) {
+                const fileHash = getFileHash();
+                localStorage.setItem(
+                    `scripts_${fileHash}`,
+                    JSON.stringify(scripts),
+                );
+            }
+
+            function getCustomScripts() {
+                const fileHash = getFileHash();
+                const scripts = localStorage.getItem(`scripts_${fileHash}`);
+                return scripts ? JSON.parse(scripts) : [];
+            }
+
             function initializeFieldVisibility() {
                 visibleFields = getFieldVisibility();
                 if (Object.keys(visibleFields).length === 0) {
@@ -828,6 +1360,10 @@
                 }
             }
 
+            function initializeCustomScripts() {
+                customScripts = getCustomScripts();
+            }
+
             async function init() {
                 await loadHeaders();
                 await loadFilterOptions();
@@ -835,6 +1371,7 @@
 
                 initializeFieldVisibility();
                 initializeSidebarDisplayColumn();
+                initializeCustomScripts();
                 sidebarVisible = getSidebarState();
 
                 const lastVisited = getLastVisited();
@@ -936,6 +1473,7 @@
 
             function renderTable(data) {
                 const container = document.getElementById("tableContainer");
+                const lastVisited = getLastVisited();
 
                 if (data.length === 0) {
                     container.innerHTML = '<div class="loading">NO DATA</div>';
@@ -955,7 +1493,8 @@
                 html += "<th>ACTIONS</th></tr></thead><tbody>";
 
                 data.forEach((row, idx) => {
-                    html += "<tr>";
+                    const isLastVisited = idx === lastVisited;
+                    html += `<tr class="${isLastVisited ? "last-visited" : ""}" id="table-row-${idx}">`;
                     headers.forEach((header) => {
                         html += `<td>${row[header] || ""}</td>`;
                     });
@@ -970,13 +1509,27 @@
 
                 html += "</tbody></table>";
                 container.innerHTML = html;
+
+                // Scroll to last visited row
+                if (lastVisited >= 0) {
+                    const lastVisitedRow = document.getElementById(
+                        `table-row-${lastVisited}`,
+                    );
+                    if (lastVisitedRow) {
+                        setTimeout(() => {
+                            lastVisitedRow.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center",
+                            });
+                        }, 100);
+                    }
+                }
             }
 
             function renderCards(data) {
                 const nav = document.getElementById("cardNav");
                 nav.innerHTML = "";
 
-                // Add header showing current selection info
                 const headerDiv = document.createElement("div");
                 headerDiv.className = "card-nav-header";
                 headerDiv.id = "cardNavHeader";
@@ -994,7 +1547,6 @@
                     item.textContent = `${idx + 1}. ${displayValue}`;
                     item.onclick = () => showCard(idx);
 
-                    // Mark as active if this is the current card
                     if (idx === currentCardIndex) {
                         item.classList.add("active");
                     }
@@ -1010,14 +1562,12 @@
 
                 saveLastVisited(index);
 
-                // Update nav selection and scroll to active item
                 document
                     .querySelectorAll(".card-nav-item")
                     .forEach((item, idx) => {
                         item.classList.toggle("active", idx === index);
                     });
 
-                // Scroll the active item into view
                 const activeItem = document.getElementById(
                     `card-nav-item-${index}`,
                 );
@@ -1029,12 +1579,26 @@
                     });
                 }
 
+                // Get header scripts
+                const headerScripts = customScripts.filter(
+                    (s) => s.position === "header",
+                );
+
                 let html = '<div class="card">';
 
                 html += `
                 <div class="card-header">
                     <div class="card-title">CARD ${index + 1} OF ${filteredData.length}</div>
                     <div class="card-header-controls">
+                        ${headerScripts
+                            .map(
+                                (script, i) => `
+                            <button class="custom-action-btn header-btn" onclick="executeScript(${customScripts.indexOf(script)})">
+                                ${script.buttonLabel}
+                            </button>
+                        `,
+                            )
+                            .join("")}
                         <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
                             ${sidebarVisible ? "HIDE" : "SHOW"} SIDEBAR
                         </button>
@@ -1053,6 +1617,29 @@
                     </div>
                 `;
                 });
+
+                // Custom Actions Section
+                const actionScripts = customScripts.filter(
+                    (s) => s.position === "actions",
+                );
+                if (actionScripts.length > 0) {
+                    html += `
+                    <div class="custom-actions-section">
+                        <div class="custom-actions-title">CUSTOM ACTIONS</div>
+                        <div class="custom-actions-buttons">
+                            ${actionScripts
+                                .map(
+                                    (script, i) => `
+                                <button class="custom-action-btn" onclick="executeScript(${customScripts.indexOf(script)})">
+                                    ${script.buttonLabel}
+                                </button>
+                            `,
+                                )
+                                .join("")}
+                        </div>
+                    </div>
+                `;
+                }
 
                 html += `
                 <div class="card-remarks">
@@ -1083,11 +1670,25 @@
                     }
                 }
 
+                html += `</div>`;
+
+                // Navigation with custom scripts
+                const navScripts = customScripts.filter(
+                    (s) => s.position === "navigation",
+                );
                 html += `
-                </div>
                 <div class="card-navigation">
                     <button onclick="navigateCard(-1)" ${index === 0 ? "disabled" : ""}>← PREV</button>
                     <button onclick="navigateCard(1)" ${index === filteredData.length - 1 ? "disabled" : ""}>NEXT →</button>
+                    ${navScripts
+                        .map(
+                            (script, i) => `
+                        <button class="custom-action-btn navigation-btn" onclick="executeScript(${customScripts.indexOf(script)})">
+                            ${script.buttonLabel}
+                        </button>
+                    `,
+                        )
+                        .join("")}
                 </div>
             `;
 
@@ -1097,6 +1698,199 @@
                 document.getElementById("currentIndex").textContent = index + 1;
 
                 applySidebarState();
+            }
+
+            // ============ SCRIPT HELPER FUNCTIONS ============
+
+            // Get value from current card data safely
+            function getValue(field) {
+                const data = filteredData[currentCardIndex];
+                return data ? data[field] || "" : "";
+            }
+
+            // Open single window
+            function openWindow(url) {
+                if (!url) {
+                    showMessage("No URL provided", "error");
+                    return null;
+                }
+                const win = window.open(url, "_blank");
+                if (!win) {
+                    pendingWindows.push(url);
+                    return null;
+                }
+                return win;
+            }
+
+            // Generate Google search URL
+            function googleSearch(query) {
+                return (
+                    "https://www.google.com/search?q=" +
+                    encodeURIComponent(query)
+                );
+            }
+
+            // Open multiple windows with popup blocker handling
+            function openWindows(urls) {
+                pendingWindows = [];
+                let blockedCount = 0;
+
+                urls.forEach((url, index) => {
+                    if (!url) return;
+
+                    // Try to open with a small delay
+                    setTimeout(() => {
+                        const win = window.open(url, "_blank");
+                        if (!win) {
+                            pendingWindows.push(url);
+                            blockedCount++;
+
+                            // Show modal if this is the last one and some were blocked
+                            if (
+                                index === urls.length - 1 &&
+                                pendingWindows.length > 0
+                            ) {
+                                setTimeout(
+                                    () => showPendingWindowsModal(),
+                                    100,
+                                );
+                            }
+                        }
+                    }, index * 100);
+                });
+
+                // Check after all attempts
+                setTimeout(
+                    () => {
+                        if (pendingWindows.length > 0) {
+                            showPendingWindowsModal();
+                        }
+                    },
+                    urls.length * 100 + 200,
+                );
+            }
+
+            // Show alert message
+            function showAlert(message) {
+                showMessage(message, "success");
+            }
+
+            // Copy to clipboard
+            function copyToClipboard(text) {
+                if (!text) {
+                    showMessage("Nothing to copy", "error");
+                    return;
+                }
+                navigator.clipboard
+                    .writeText(text)
+                    .then(() => {
+                        showMessage(
+                            "Copied: " +
+                                text.substring(0, 50) +
+                                (text.length > 50 ? "..." : ""),
+                            "success",
+                        );
+                    })
+                    .catch((err) => {
+                        showMessage("Failed to copy", "error");
+                    });
+            }
+
+            // Show pending windows modal
+            function showPendingWindowsModal() {
+                const modal = document.getElementById("pendingWindowsModal");
+                const list = document.getElementById("pendingWindowsList");
+
+                list.innerHTML = pendingWindows
+                    .map(
+                        (url, index) => `
+                    <div class="pending-window-item">
+                        <span class="pending-window-url" title="${url}">${url}</span>
+                        <button onclick="openSinglePendingWindow(${index})">OPEN</button>
+                    </div>
+                `,
+                    )
+                    .join("");
+
+                modal.classList.add("active");
+            }
+
+            function openSinglePendingWindow(index) {
+                const url = pendingWindows[index];
+                window.open(url, "_blank");
+
+                // Remove from list
+                const items = document.querySelectorAll(".pending-window-item");
+                if (items[index]) {
+                    items[index].style.opacity = "0.5";
+                    items[index].querySelector("button").disabled = true;
+                    items[index].querySelector("button").textContent = "OPENED";
+                }
+            }
+
+            function openAllPendingWindows() {
+                pendingWindows.forEach((url, index) => {
+                    setTimeout(() => {
+                        window.open(url, "_blank");
+                    }, index * 300);
+                });
+
+                setTimeout(
+                    () => {
+                        closePendingWindowsModal();
+                        showMessage("Opened all windows!", "success");
+                    },
+                    pendingWindows.length * 300 + 100,
+                );
+            }
+
+            function closePendingWindowsModal() {
+                document
+                    .getElementById("pendingWindowsModal")
+                    .classList.remove("active");
+                pendingWindows = [];
+            }
+
+            // Execute custom script
+            function executeScript(scriptIndex) {
+                const script = customScripts[scriptIndex];
+                if (!script) return;
+
+                const data = filteredData[currentCardIndex];
+                const index = currentCardIndex;
+                const allDataRef = filteredData;
+
+                try {
+                    // Create function with all helpers available
+                    const fn = new Function(
+                        "data",
+                        "allData",
+                        "headers",
+                        "index",
+                        "openWindow",
+                        "openWindows",
+                        "googleSearch",
+                        "showAlert",
+                        "copyToClipboard",
+                        "getValue",
+                        script.code,
+                    );
+                    fn(
+                        data,
+                        allDataRef,
+                        headers,
+                        index,
+                        openWindow,
+                        openWindows,
+                        googleSearch,
+                        showAlert,
+                        copyToClipboard,
+                        getValue,
+                    );
+                } catch (error) {
+                    showMessage("Script error: " + error.message, "error");
+                    console.error("Script execution error:", error);
+                }
             }
 
             async function saveCardRemark() {
@@ -1175,8 +1969,32 @@
                 }
             }
 
+            function switchConfigTab(tabName) {
+                document.querySelectorAll(".modal-tab").forEach((tab) => {
+                    tab.classList.remove("active");
+                });
+                document.querySelectorAll(".tab-content").forEach((content) => {
+                    content.classList.remove("active");
+                });
+
+                event.target.classList.add("active");
+                document
+                    .getElementById(`tab-${tabName}`)
+                    .classList.add("active");
+            }
+
             function openConfigModal() {
                 const modal = document.getElementById("configModal");
+
+                // Reset to first tab
+                document.querySelectorAll(".modal-tab").forEach((tab, i) => {
+                    tab.classList.toggle("active", i === 0);
+                });
+                document
+                    .querySelectorAll(".tab-content")
+                    .forEach((content, i) => {
+                        content.classList.toggle("active", i === 0);
+                    });
 
                 const sidebarSelect = document.getElementById(
                     "sidebarDisplayColumn",
@@ -1215,7 +2033,110 @@
                     };
                 });
 
+                // Render scripts list
+                renderScriptsList();
+
                 modal.classList.add("active");
+            }
+
+            function renderScriptsList() {
+                const container = document.getElementById("scriptsList");
+
+                if (customScripts.length === 0) {
+                    container.innerHTML =
+                        '<div class="no-scripts">No custom scripts added</div>';
+                    return;
+                }
+
+                container.innerHTML = customScripts
+                    .map(
+                        (script, index) => `
+                    <div class="script-item">
+                        <div class="script-item-info">
+                            <div class="script-item-name">${script.name}</div>
+                            <div class="script-item-meta">Button: "${script.buttonLabel}" | Position: ${script.position}</div>
+                        </div>
+                        <div class="script-item-actions">
+                            <button onclick="editScript(${index})">EDIT</button>
+                            <button onclick="deleteScript(${index})">DELETE</button>
+                        </div>
+                    </div>
+                `,
+                    )
+                    .join("");
+            }
+
+            function openScriptEditor(index = -1) {
+                editingScriptIndex = index;
+                const modal = document.getElementById("scriptEditorModal");
+                const title = document.getElementById("scriptEditorTitle");
+
+                if (index >= 0) {
+                    const script = customScripts[index];
+                    title.textContent = "EDIT SCRIPT";
+                    document.getElementById("scriptName").value = script.name;
+                    document.getElementById("scriptButtonLabel").value =
+                        script.buttonLabel;
+                    document.getElementById("scriptPosition").value =
+                        script.position;
+                    document.getElementById("scriptCode").value = script.code;
+                } else {
+                    title.textContent = "ADD CUSTOM SCRIPT";
+                    document.getElementById("scriptName").value = "";
+                    document.getElementById("scriptButtonLabel").value = "";
+                    document.getElementById("scriptPosition").value = "actions";
+                    document.getElementById("scriptCode").value = "";
+                }
+
+                modal.classList.add("active");
+            }
+
+            function closeScriptEditor() {
+                document
+                    .getElementById("scriptEditorModal")
+                    .classList.remove("active");
+                editingScriptIndex = -1;
+            }
+
+            function saveScript() {
+                const name = document.getElementById("scriptName").value.trim();
+                const buttonLabel = document
+                    .getElementById("scriptButtonLabel")
+                    .value.trim();
+                const position =
+                    document.getElementById("scriptPosition").value;
+                const code = document.getElementById("scriptCode").value.trim();
+
+                if (!name || !buttonLabel || !code) {
+                    showMessage("Please fill all fields", "error");
+                    return;
+                }
+
+                const script = { name, buttonLabel, position, code };
+
+                if (editingScriptIndex >= 0) {
+                    customScripts[editingScriptIndex] = script;
+                } else {
+                    customScripts.push(script);
+                }
+
+                saveCustomScripts(customScripts);
+                renderScriptsList();
+                closeScriptEditor();
+                showMessage("Script saved!", "success");
+            }
+
+            function editScript(index) {
+                openScriptEditor(index);
+            }
+
+            function deleteScript(index) {
+                if (confirm("Are you sure you want to delete this script?")) {
+                    customScripts.splice(index, 1);
+                    saveCustomScripts(customScripts);
+                    renderScriptsList();
+                    showMessage("Script deleted", "success");
+                }
             }
 
             function selectAllFields() {
@@ -1257,6 +2178,10 @@
                 if (currentCardIndex >= 0) {
                     showCard(currentCardIndex);
                 }
+
+                if (currentView === "table") {
+                    renderTable(filteredData);
+                }
             }
 
             function switchView(view) {
@@ -1277,6 +2202,8 @@
                         .querySelectorAll(".toggle-btn")[0]
                         .classList.add("active");
                     document.getElementById("currentIndex").textContent = "-";
+
+                    renderTable(filteredData);
                 } else {
                     document
                         .getElementById("tableView")
@@ -1349,8 +2276,19 @@
 
                 document.addEventListener("keydown", function (e) {
                     if (e.key === "Escape") {
-                        const modal = document.getElementById("configModal");
-                        if (modal.classList.contains("active")) {
+                        const pendingModal = document.getElementById(
+                            "pendingWindowsModal",
+                        );
+                        const scriptModal =
+                            document.getElementById("scriptEditorModal");
+                        const configModal =
+                            document.getElementById("configModal");
+
+                        if (pendingModal.classList.contains("active")) {
+                            closePendingWindowsModal();
+                        } else if (scriptModal.classList.contains("active")) {
+                            closeScriptEditor();
+                        } else if (configModal.classList.contains("active")) {
                             closeConfigModal();
                         } else if (currentView === "card") {
                             closeCardView();
@@ -1363,6 +2301,12 @@
                         currentView === "card" &&
                         !document
                             .getElementById("configModal")
+                            .classList.contains("active") &&
+                        !document
+                            .getElementById("scriptEditorModal")
+                            .classList.contains("active") &&
+                        !document
+                            .getElementById("pendingWindowsModal")
                             .classList.contains("active")
                     ) {
                         if (e.key === "ArrowLeft" && currentCardIndex > 0) {
