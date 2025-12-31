@@ -6,6 +6,7 @@
         <title>CSV Viewer</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap"
             rel="stylesheet"
@@ -46,6 +47,12 @@
                 font-size: 16px;
                 font-weight: 500;
                 color: #1e40af;
+            }
+
+            .header-controls {
+                display: flex;
+                gap: 10px;
+                align-items: center;
             }
 
             .view-toggle {
@@ -135,6 +142,7 @@
                 display: flex;
                 gap: 15px;
                 margin-bottom: 20px;
+                flex-wrap: wrap;
             }
 
             .stat {
@@ -142,6 +150,7 @@
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 flex: 1;
+                min-width: 120px;
                 border-radius: 12px;
             }
 
@@ -155,6 +164,85 @@
             .stat-value {
                 font-size: 20px;
                 color: #1a1a1a;
+            }
+
+            /* Analytics Panel */
+            .analytics-panel {
+                display: none;
+                margin-bottom: 20px;
+                padding: 20px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+            }
+
+            .analytics-panel.active {
+                display: block;
+            }
+
+            .analytics-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid #93c5fd;
+            }
+
+            .analytics-title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #1e40af;
+                text-transform: uppercase;
+            }
+
+            .analytics-results {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+
+            .analytics-result-card {
+                padding: 15px;
+                background: #f8fafc;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+            }
+
+            .analytics-result-label {
+                font-size: 10px;
+                color: #666;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+            }
+
+            .analytics-result-value {
+                font-size: 18px;
+                color: #1e40af;
+                font-weight: 500;
+                word-break: break-word;
+            }
+
+            .table-scripts-container {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #e0e0e0;
+            }
+
+            .table-script-btn {
+                background: #7c3aed;
+                color: #fff;
+                border-color: #7c3aed;
+            }
+
+            .table-script-btn:hover {
+                background: #6d28d9;
+                border-color: #6d28d9;
+                color: #fff;
             }
 
             /* Table View */
@@ -191,6 +279,11 @@
                 top: 0;
             }
 
+            th.hidden-column,
+            td.hidden-column {
+                display: none;
+            }
+
             td {
                 padding: 12px;
                 border-bottom: 1px solid #f0f0f0;
@@ -201,7 +294,6 @@
                 background: #dbeafe;
             }
 
-            /* Last visited row highlighting */
             tbody tr.last-visited {
                 background: #fef3c7;
                 border-left: 4px solid #f59e0b;
@@ -344,7 +436,7 @@
                 margin-left: 0;
             }
 
-            /* Config Modal */
+            /* Modal Styles */
             .modal {
                 display: none;
                 position: fixed;
@@ -366,7 +458,7 @@
                 background: #fff;
                 border: 1px solid #e0e0e0;
                 padding: 30px;
-                max-width: 700px;
+                max-width: 600px;
                 width: 90%;
                 max-height: 85vh;
                 overflow-y: auto;
@@ -374,7 +466,7 @@
             }
 
             .modal-content.wide {
-                max-width: 900px;
+                max-width: 800px;
             }
 
             .modal-header {
@@ -385,48 +477,25 @@
                 padding-bottom: 15px;
                 border-bottom: 2px solid #93c5fd;
                 color: #1e40af;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
             }
 
-            .modal-tabs {
+            .modal-footer {
                 display: flex;
                 gap: 10px;
-                margin-bottom: 20px;
-                border-bottom: 1px solid #e0e0e0;
-                padding-bottom: 10px;
-                flex-wrap: wrap;
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid #e0e0e0;
             }
 
-            .modal-tab {
-                padding: 8px 16px;
-                background: #fff;
-                border: 1px solid #e0e0e0;
-                border-radius: 20px;
-                cursor: pointer;
-                font-size: 11px;
-                text-transform: uppercase;
-            }
-
-            .modal-tab:hover {
-                background: #dbeafe;
-                border-color: #93c5fd;
-                color: #1e40af;
-            }
-
-            .modal-tab.active {
+            .modal-footer button.primary {
                 background: #1e40af;
                 color: #fff;
                 border-color: #1e40af;
             }
 
-            .tab-content {
-                display: none;
-            }
-
-            .tab-content.active {
-                display: block;
+            .modal-footer button.primary:hover {
+                background: #1e3a8a;
+                border-color: #1e3a8a;
             }
 
             .config-section {
@@ -441,25 +510,8 @@
                 font-weight: 500;
             }
 
-            .sidebar-display-select {
-                width: 100%;
-                padding: 10px 12px;
-                border: 1px solid #e0e0e0;
-                border-radius: 12px;
-                font-family: "Roboto Mono", monospace;
-                font-size: 12px;
-                background: #fff;
-                cursor: pointer;
-            }
-
-            .sidebar-display-select:focus {
-                outline: none;
-                border-color: #1e40af;
-                box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
-            }
-
             .field-toggles-container {
-                max-height: 300px;
+                max-height: 250px;
                 overflow-y: auto;
                 border: 1px solid #e0e0e0;
                 border-radius: 12px;
@@ -469,16 +521,12 @@
             .field-toggle {
                 display: flex;
                 align-items: center;
-                padding: 10px;
-                margin-bottom: 5px;
+                padding: 8px 10px;
+                margin-bottom: 4px;
                 border: 1px solid #e0e0e0;
                 cursor: pointer;
                 transition: background 0.2s;
-                border-radius: 12px;
-            }
-
-            .field-toggle:last-child {
-                margin-bottom: 0;
+                border-radius: 8px;
             }
 
             .field-toggle:hover {
@@ -498,25 +546,6 @@
                 flex: 1;
                 cursor: pointer;
                 font-size: 12px;
-            }
-
-            .modal-footer {
-                display: flex;
-                gap: 10px;
-                margin-top: 20px;
-                padding-top: 20px;
-                border-top: 1px solid #e0e0e0;
-            }
-
-            .modal-footer button:first-child {
-                background: #1e40af;
-                color: #fff;
-                border-color: #1e40af;
-            }
-
-            .modal-footer button:first-child:hover {
-                background: #1e3a8a;
-                border-color: #1e3a8a;
             }
 
             .card-row.hidden {
@@ -543,78 +572,104 @@
                 word-break: break-word;
             }
 
+            /* Remarks Section */
             .card-remarks {
                 margin-top: 30px;
                 padding-top: 30px;
                 border-top: 2px solid #93c5fd;
             }
 
+            .card-remarks-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+
             .card-remarks-title {
                 font-size: 11px;
                 text-transform: uppercase;
                 color: #1e40af;
-                margin-bottom: 15px;
+                font-weight: 500;
             }
 
-            .remark-input-wrapper {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 15px;
-            }
-
-            .remark-input {
-                flex: 1;
-                padding: 10px;
-                background: #fff;
-                border: 1px solid #e0e0e0;
-                color: #1a1a1a;
-                font-family: "Roboto Mono", monospace;
-                font-size: 12px;
-                border-radius: 20px;
-            }
-
-            .remark-input:focus {
-                outline: none;
-                border-color: #1e40af;
-                box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
-            }
-
-            .remark-input-wrapper button {
-                background: #1e40af;
-                color: #fff;
-                border-color: #1e40af;
-            }
-
-            .remark-input-wrapper button:hover {
-                background: #1e3a8a;
-                border-color: #1e3a8a;
-            }
-
-            .remark-values {
+            .remarks-bubbles {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 15px;
+                gap: 8px;
+                margin-bottom: 20px;
             }
 
-            .remark-tag {
+            .remark-bubble {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
                 padding: 6px 12px;
                 background: #dbeafe;
                 border: 1px solid #93c5fd;
-                font-size: 11px;
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
                 border-radius: 20px;
+                font-size: 11px;
                 color: #1e40af;
             }
 
-            .remark-meta {
-                font-size: 10px;
-                color: #999;
-                margin-top: 10px;
+            .remark-bubble-label {
+                font-weight: 500;
+                color: #1e3a8a;
             }
 
+            .remark-bubble-value {
+                color: #1a1a1a;
+            }
+
+            .no-remarks {
+                color: #999;
+                font-size: 12px;
+                font-style: italic;
+            }
+
+            .add-remark-section {
+                background: #f8fafc;
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+                padding: 15px;
+            }
+
+            .add-remark-row {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .add-remark-row select {
+                min-width: 180px;
+                flex: 0;
+            }
+
+            .add-remark-row input {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .quick-btns {
+                display: flex;
+                gap: 8px;
+                margin-top: 10px;
+                flex-wrap: wrap;
+            }
+
+            .quick-btn {
+                padding: 5px 10px;
+                font-size: 10px;
+                background: #f0fdf4;
+                border-color: #86efac;
+                color: #166534;
+            }
+
+            .quick-btn:hover {
+                background: #dcfce7;
+            }
+
+            /* Navigation */
             .card-navigation {
                 display: flex;
                 gap: 10px;
@@ -624,187 +679,27 @@
                 flex-wrap: wrap;
             }
 
-            .message {
-                padding: 12px;
-                margin-bottom: 20px;
-                background: #fff;
-                border: 1px solid #e0e0e0;
-                font-size: 11px;
-                border-radius: 12px;
-            }
-
-            .message.success {
-                border-color: #4caf50;
-                color: #2e7d32;
-                background: #e8f5e9;
-            }
-
-            .message.error {
-                border-color: #f44336;
-                color: #c62828;
-                background: #ffebee;
-            }
-
-            .message.warning {
-                border-color: #ff9800;
-                color: #e65100;
-                background: #fff3e0;
-            }
-
-            .loading {
-                text-align: center;
-                padding: 40px;
-                color: #1e40af;
-            }
-
-            .select-all-controls {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 10px;
-            }
-
-            .select-all-controls button {
-                padding: 6px 12px;
-                font-size: 11px;
-            }
-
-            .card-nav-header {
-                padding: 10px 14px;
-                background: #dbeafe;
-                border-radius: 12px;
-                margin-bottom: 10px;
-                font-size: 10px;
-                text-transform: uppercase;
-                color: #1e40af;
-                font-weight: 500;
-                text-align: center;
-            }
-
-            /* Custom Scripts Styles */
-            .scripts-list {
-                border: 1px solid #e0e0e0;
-                border-radius: 12px;
-                max-height: 300px;
-                overflow-y: auto;
-            }
-
-            .script-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px 15px;
-                border-bottom: 1px solid #f0f0f0;
-            }
-
-            .script-item:last-child {
-                border-bottom: none;
-            }
-
-            .script-item-info {
-                flex: 1;
-            }
-
-            .script-item-name {
-                font-weight: 500;
-                color: #1e40af;
+            .nav-btn {
+                padding: 10px 20px;
                 font-size: 12px;
             }
 
-            .script-item-meta {
-                font-size: 10px;
-                color: #666;
-                margin-top: 4px;
-            }
-
-            .script-item-actions {
-                display: flex;
-                gap: 8px;
-            }
-
-            .script-item-actions button {
-                padding: 4px 10px;
-                font-size: 10px;
-            }
-
-            .add-script-btn {
-                margin-top: 10px;
+            .nav-btn.primary {
                 background: #1e40af;
                 color: #fff;
                 border-color: #1e40af;
             }
 
-            .add-script-btn:hover {
+            .nav-btn.primary:hover {
                 background: #1e3a8a;
-                border-color: #1e3a8a;
             }
 
-            /* Script Editor Modal */
-            .script-form {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
+            .nav-btn.primary:disabled {
+                background: #94a3b8;
+                border-color: #94a3b8;
             }
 
-            .script-form-row {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .script-form-row label {
-                font-size: 11px;
-                text-transform: uppercase;
-                color: #1e40af;
-                font-weight: 500;
-            }
-
-            .script-form-row input,
-            .script-form-row select {
-                flex: none;
-                border-radius: 8px;
-            }
-
-            .script-form-row textarea {
-                width: 100%;
-                min-height: 200px;
-                padding: 12px;
-                font-family: "Roboto Mono", monospace;
-                font-size: 12px;
-                border: 1px solid #e0e0e0;
-                border-radius: 8px;
-                resize: vertical;
-            }
-
-            .script-form-row textarea:focus {
-                outline: none;
-                border-color: #1e40af;
-                box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
-            }
-
-            .script-help {
-                background: #f8fafc;
-                border: 1px solid #e0e0e0;
-                border-radius: 8px;
-                padding: 12px;
-                font-size: 11px;
-                color: #666;
-                margin-bottom: 10px;
-            }
-
-            .script-help code {
-                background: #e2e8f0;
-                padding: 2px 6px;
-                border-radius: 4px;
-                font-size: 10px;
-            }
-
-            .script-help-title {
-                font-weight: 600;
-                color: #1e40af;
-                margin-bottom: 8px;
-            }
-
-            /* Custom Action Buttons Section */
+            /* Custom Action Buttons */
             .custom-actions-section {
                 margin-top: 30px;
                 padding-top: 30px;
@@ -846,82 +741,218 @@
                 border-color: #6d28d9;
             }
 
-            .custom-action-btn.navigation-btn {
-                background: #ea580c;
-                border-color: #ea580c;
+            .message {
+                padding: 12px;
+                margin-bottom: 20px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                font-size: 11px;
+                border-radius: 12px;
             }
 
-            .custom-action-btn.navigation-btn:hover {
-                background: #c2410c;
-                border-color: #c2410c;
+            .message.success {
+                border-color: #4caf50;
+                color: #2e7d32;
+                background: #e8f5e9;
             }
 
-            .no-scripts {
-                padding: 20px;
+            .message.error {
+                border-color: #f44336;
+                color: #c62828;
+                background: #ffebee;
+            }
+
+            .loading {
                 text-align: center;
-                color: #999;
-                font-size: 12px;
+                padding: 40px;
+                color: #1e40af;
             }
 
-            /* Pending Windows Modal */
-            .pending-windows {
-                margin-top: 15px;
+            .select-all-controls {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
             }
 
-            .pending-window-item {
+            .select-all-controls button {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+
+            .card-nav-header {
+                padding: 10px 14px;
+                background: #dbeafe;
+                border-radius: 12px;
+                margin-bottom: 10px;
+                font-size: 10px;
+                text-transform: uppercase;
+                color: #1e40af;
+                font-weight: 500;
+                text-align: center;
+            }
+
+            /* Scripts */
+            .scripts-list {
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+                max-height: 200px;
+                overflow-y: auto;
+            }
+
+            .script-item {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: 10px 12px;
-                background: #f8fafc;
-                border: 1px solid #e0e0e0;
-                border-radius: 8px;
-                margin-bottom: 8px;
-                font-size: 11px;
+                border-bottom: 1px solid #f0f0f0;
             }
 
-            .pending-window-item:last-child {
-                margin-bottom: 0;
+            .script-item:last-child {
+                border-bottom: none;
             }
 
-            .pending-window-url {
-                flex: 1;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                margin-right: 10px;
+            .script-item-name {
+                font-weight: 500;
                 color: #1e40af;
+                font-size: 12px;
             }
 
-            .pending-window-item button {
-                padding: 4px 12px;
+            .script-item-actions {
+                display: flex;
+                gap: 6px;
+            }
+
+            .script-item-actions button {
+                padding: 3px 8px;
                 font-size: 10px;
+            }
+
+            .add-script-btn {
+                margin-top: 10px;
                 background: #1e40af;
                 color: #fff;
                 border-color: #1e40af;
             }
 
-            .open-all-btn {
-                margin-top: 10px;
-                background: #059669 !important;
-                color: #fff !important;
-                border-color: #059669 !important;
+            .script-form-row {
+                margin-bottom: 15px;
+            }
+
+            .script-form-row label {
+                display: block;
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #1e40af;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+
+            .script-form-row textarea {
                 width: 100%;
+                min-height: 150px;
+                padding: 12px;
+                font-family: "Roboto Mono", monospace;
+                font-size: 12px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                resize: vertical;
             }
 
-            .open-all-btn:hover {
-                background: #047857 !important;
-                border-color: #047857 !important;
+            .script-form-row textarea:focus {
+                outline: none;
+                border-color: #1e40af;
             }
 
-            .popup-warning {
-                background: #fef3c7;
-                border: 1px solid #f59e0b;
+            .script-help {
+                background: #f8fafc;
+                border: 1px solid #e0e0e0;
                 border-radius: 8px;
                 padding: 12px;
+                font-size: 10px;
+                color: #666;
                 margin-bottom: 15px;
+            }
+
+            .script-help code {
+                background: #e2e8f0;
+                padding: 1px 4px;
+                border-radius: 3px;
+            }
+
+            .no-scripts {
+                padding: 15px;
+                text-align: center;
+                color: #999;
                 font-size: 11px;
-                color: #92400e;
+            }
+
+            /* Remark Column Management */
+            .remark-column-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                margin-bottom: 8px;
+            }
+
+            .remark-column-item input {
+                flex: 1;
+                border-radius: 6px;
+            }
+
+            .remark-column-item button {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+
+            .add-column-row {
+                display: flex;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .analytics-toggle-btn {
+                background: #7c3aed;
+                color: #fff;
+                border-color: #7c3aed;
+            }
+
+            .analytics-toggle-btn:hover {
+                background: #6d28d9;
+                border-color: #6d28d9;
+                color: #fff;
+            }
+
+            /* Remarks Edit Modal */
+            .remark-edit-row {
+                margin-bottom: 15px;
+            }
+
+            .remark-edit-row label {
+                display: block;
+                font-size: 11px;
+                text-transform: uppercase;
+                color: #1e40af;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+
+            .remark-edit-row input {
+                width: 100%;
+                border-radius: 8px;
+            }
+
+            .remark-quick-actions {
+                display: flex;
+                gap: 6px;
+                margin-top: 6px;
+            }
+
+            .remark-quick-actions button {
+                padding: 3px 8px;
+                font-size: 9px;
             }
         </style>
     </head>
@@ -929,17 +960,34 @@
         <div class="container">
             <div class="header">
                 <div class="title">CSV VIEWER</div>
-                <div class="view-toggle">
-                    <button
-                        class="toggle-btn active"
-                        onclick="switchView('table')"
-                    >
-                        TABLE
-                    </button>
-                    <button class="toggle-btn" onclick="switchView('card')">
-                        CARDS
-                    </button>
+                <div class="header-controls">
+                    <div class="view-toggle">
+                        <button
+                            class="toggle-btn active"
+                            onclick="switchView('table')"
+                        >
+                            TABLE
+                        </button>
+                        <button class="toggle-btn" onclick="switchView('card')">
+                            CARDS
+                        </button>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Analytics Panel -->
+            <div class="analytics-panel" id="analyticsPanel">
+                <div class="analytics-header">
+                    <div class="analytics-title">Analytics Dashboard</div>
+                    <button onclick="toggleAnalytics()">CLOSE</button>
+                </div>
+                <div class="analytics-results" id="analyticsResults">
+                    <div class="no-scripts">Run a script to see results</div>
+                </div>
+                <div
+                    class="table-scripts-container"
+                    id="tableScriptsContainer"
+                ></div>
             </div>
 
             <div class="controls">
@@ -952,6 +1000,14 @@
                 <input type="text" id="searchInput" placeholder="SEARCH..." />
                 <button onclick="applyFilters()">APPLY</button>
                 <button onclick="clearFilters()">CLEAR</button>
+                <button
+                    class="analytics-toggle-btn"
+                    id="analyticsBtn"
+                    onclick="toggleAnalytics()"
+                >
+                    ANALYTICS
+                </button>
+                <button onclick="openTableConfig()">TABLE CONFIG</button>
             </div>
 
             <div class="stats">
@@ -988,112 +1044,125 @@
                 </div>
             </div>
 
-            <!-- Config Modal -->
-            <div class="modal" id="configModal">
+            <!-- Table Config Modal -->
+            <div class="modal" id="tableConfigModal">
                 <div class="modal-content wide">
-                    <div class="modal-header">
-                        <span>CONFIGURATION</span>
-                    </div>
+                    <div class="modal-header">TABLE CONFIGURATION</div>
 
-                    <div class="modal-tabs">
-                        <button
-                            class="modal-tab active"
-                            onclick="switchConfigTab('display')"
-                        >
-                            DISPLAY
-                        </button>
-                        <button
-                            class="modal-tab"
-                            onclick="switchConfigTab('fields')"
-                        >
-                            FIELDS
-                        </button>
-                        <button
-                            class="modal-tab"
-                            onclick="switchConfigTab('scripts')"
-                        >
-                            CUSTOM SCRIPTS
-                        </button>
-                    </div>
-
-                    <!-- Display Tab -->
-                    <div class="tab-content active" id="tab-display">
-                        <div class="config-section">
-                            <div class="config-section-title">
-                                Sidebar Display Column
-                            </div>
-                            <select
-                                id="sidebarDisplayColumn"
-                                class="sidebar-display-select"
-                            ></select>
-                        </div>
-                    </div>
-
-                    <!-- Fields Tab -->
-                    <div class="tab-content" id="tab-fields">
-                        <div class="config-section">
-                            <div class="config-section-title">
-                                Card Field Visibility
-                            </div>
-                            <div class="select-all-controls">
-                                <button onclick="selectAllFields()">
-                                    SELECT ALL
-                                </button>
-                                <button onclick="deselectAllFields()">
-                                    DESELECT ALL
-                                </button>
-                            </div>
-                            <div
-                                class="field-toggles-container"
-                                id="fieldToggles"
-                            ></div>
-                        </div>
-                    </div>
-
-                    <!-- Scripts Tab -->
-                    <div class="tab-content" id="tab-scripts">
-                        <div class="config-section">
-                            <div class="config-section-title">
-                                Custom Action Scripts
-                            </div>
-                            <div class="script-help">
-                                <div class="script-help-title">
-                                    Available Variables & Functions:
-                                </div>
-                                <code>data</code> - Current card data object<br />
-                                <code>allData</code> - All filtered data
-                                array<br />
-                                <code>headers</code> - Column headers array<br />
-                                <code>index</code> - Current card index<br /><br />
-                                <code>openWindow(url)</code> - Open URL in new
-                                tab<br />
-                                <code>openWindows([url1, url2, ...])</code> -
-                                Open multiple URLs<br />
-                                <code>googleSearch(query)</code> - Open Google
-                                search<br />
-                                <code>copyToClipboard(text)</code> - Copy to
-                                clipboard<br />
-                                <code>showAlert(msg)</code> - Show message<br />
-                                <code>getValue(field)</code> - Get field value
-                                safely
-                            </div>
-                            <div class="scripts-list" id="scriptsList">
-                                <div class="no-scripts">
-                                    No custom scripts added
-                                </div>
-                            </div>
-                            <button
-                                class="add-script-btn"
-                                onclick="openScriptEditor()"
-                            >
-                                + ADD SCRIPT
+                    <div class="config-section">
+                        <div class="config-section-title">Visible Columns</div>
+                        <div class="select-all-controls">
+                            <button onclick="selectAllTableCols()">
+                                SELECT ALL
+                            </button>
+                            <button onclick="deselectAllTableCols()">
+                                DESELECT ALL
                             </button>
                         </div>
+                        <div
+                            class="field-toggles-container"
+                            id="tableColToggles"
+                        ></div>
+                    </div>
+
+                    <div class="config-section">
+                        <div class="config-section-title">
+                            Table Scripts (Analytics)
+                        </div>
+                        <div class="script-help">
+                            <code>count()</code> <code>sum(field)</code>
+                            <code>average(field)</code>
+                            <code>unique(field)</code>
+                            <code>groupBy(field)</code>
+                            <code>showResult(label, value)</code>
+                            <code>exportCSV(data, filename)</code>
+                        </div>
+                        <div class="scripts-list" id="tableScriptsList"></div>
+                        <button
+                            class="add-script-btn"
+                            onclick="openScriptEditor('table')"
+                        >
+                            + ADD SCRIPT
+                        </button>
                     </div>
 
                     <div class="modal-footer">
-                        <button onclick="saveFieldConfig()">SAVE</button>
-                        <button onclick="closeConfigModal()">CANCEL</button>
+                        <button class="primary" onclick="saveTableConfig()">
+                            SAVE
+                        </button>
+                        <button onclick="closeTableConfig()">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Config Modal -->
+            <div class="modal" id="cardConfigModal">
+                <div class="modal-content wide">
+                    <div class="modal-header">CARD CONFIGURATION</div>
+
+                    <div class="config-section">
+                        <div class="config-section-title">
+                            Sidebar Display Column
+                        </div>
+                        <select
+                            id="sidebarDisplayColumn"
+                            style="width: 100%; border-radius: 8px"
+                        ></select>
+                    </div>
+
+                    <div class="config-section">
+                        <div class="config-section-title">Visible Fields</div>
+                        <div class="select-all-controls">
+                            <button onclick="selectAllCardFields()">
+                                SELECT ALL
+                            </button>
+                            <button onclick="deselectAllCardFields()">
+                                DESELECT ALL
+                            </button>
+                        </div>
+                        <div
+                            class="field-toggles-container"
+                            id="cardFieldToggles"
+                        ></div>
+                    </div>
+
+                    <div class="config-section">
+                        <div class="config-section-title">Remark Columns</div>
+                        <div id="remarkColumnsList"></div>
+                        <div class="add-column-row">
+                            <input
+                                type="text"
+                                id="newRemarkColumnName"
+                                placeholder="New column name..."
+                            />
+                            <button onclick="addRemarkColumn()">ADD</button>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <div class="config-section-title">Card Scripts</div>
+                        <div class="script-help">
+                            <code>getValue(field)</code>
+                            <code>setRemark(col, val)</code>
+                            <code>addToRemark(col, val)</code>
+                            <code>dateToday()</code>
+                            <code>openWindow(url)</code>
+                            <code>copyToClipboard(text)</code>
+                        </div>
+                        <div class="scripts-list" id="cardScriptsList"></div>
+                        <button
+                            class="add-script-btn"
+                            onclick="openScriptEditor('card')"
+                        >
+                            + ADD SCRIPT
+                        </button>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="primary" onclick="saveCardConfig()">
+                            SAVE
+                        </button>
+                        <button onclick="closeCardConfig()">CANCEL</button>
                     </div>
                 </div>
             </div>
@@ -1101,964 +1170,923 @@
             <!-- Script Editor Modal -->
             <div class="modal" id="scriptEditorModal">
                 <div class="modal-content wide">
-                    <div class="modal-header">
-                        <span id="scriptEditorTitle">ADD CUSTOM SCRIPT</span>
+                    <div class="modal-header" id="scriptEditorTitle">
+                        ADD SCRIPT
                     </div>
 
-                    <div class="script-form">
-                        <div class="script-form-row">
-                            <label>Script Name</label>
-                            <input
-                                type="text"
-                                id="scriptName"
-                                placeholder="e.g., Doctor Search"
-                            />
-                        </div>
+                    <div class="script-form-row">
+                        <label>Script Name</label>
+                        <input
+                            type="text"
+                            id="scriptName"
+                            placeholder="e.g., Search Google"
+                        />
+                    </div>
 
-                        <div class="script-form-row">
-                            <label>Button Label</label>
-                            <input
-                                type="text"
-                                id="scriptButtonLabel"
-                                placeholder="e.g., Search All"
-                            />
-                        </div>
+                    <div class="script-form-row">
+                        <label>Button Label</label>
+                        <input
+                            type="text"
+                            id="scriptBtnLabel"
+                            placeholder="e.g., SEARCH"
+                        />
+                    </div>
 
-                        <div class="script-form-row">
-                            <label>Button Position</label>
-                            <select id="scriptPosition">
-                                <option value="header">
-                                    Header (Top Right)
-                                </option>
-                                <option value="actions">
-                                    Custom Actions Section
-                                </option>
-                                <option value="navigation">
-                                    Navigation Area
-                                </option>
-                            </select>
-                        </div>
+                    <div class="script-form-row" id="scriptPositionRow">
+                        <label>Position</label>
+                        <select id="scriptPosition">
+                            <option value="header">Header</option>
+                            <option value="actions">Actions Section</option>
+                            <option value="navigation">Navigation</option>
+                        </select>
+                    </div>
 
-                        <div class="script-form-row">
-                            <label>JavaScript Code</label>
-                            <textarea
-                                id="scriptCode"
-                                placeholder="// Your code here..."
-                            ></textarea>
-                        </div>
-
-                        <div class="script-help">
-                            <div class="script-help-title">
-                                Example: Your Doctor Search Script
-                            </div>
-                            <pre
-                                style="
-                                    background: #e2e8f0;
-                                    padding: 10px;
-                                    border-radius: 6px;
-                                    overflow-x: auto;
-                                    font-size: 10px;
-                                "
-                            >
-const name = getValue('Keyword');
-const spec = getValue('Speciality Name');
-const city = getValue('City');
-
-const query1 = `dr ${name}`;
-const query2 = `${query1} ${spec} ${city}`;
-const query3 = `${query2} hexaheath`;
-
-copyToClipboard(name);
-
-// Opens all 3 searches (handles popup blockers)
-openWindows([
-    googleSearch(query1),
-    googleSearch(query2),
-    googleSearch(query3)
-]);</pre
-                            >
-                        </div>
-
-                        <div class="script-help">
-                            <div class="script-help-title">More Examples:</div>
-                            <strong>1. Simple Google Search:</strong><br />
-                            <code>googleSearch(getValue('Name'));</code
-                            ><br /><br />
-                            <strong>2. Open Website from data:</strong><br />
-                            <code>openWindow(getValue('Website'));</code
-                            ><br /><br />
-                            <strong>3. Copy & Search:</strong><br />
-                            <code
-                                >copyToClipboard(getValue('Email'));
-                                showAlert('Copied!');</code
-                            ><br /><br />
-                            <strong>4. LinkedIn Search:</strong><br />
-                            <code
-                                >openWindow('https://linkedin.com/search/results/all/?keywords='
-                                +
-                                encodeURIComponent(getValue('Company')));</code
-                            >
-                        </div>
+                    <div class="script-form-row">
+                        <label>Code</label>
+                        <textarea
+                            id="scriptCode"
+                            placeholder="// Your code here"
+                        ></textarea>
                     </div>
 
                     <div class="modal-footer">
-                        <button onclick="saveScript()">SAVE SCRIPT</button>
+                        <button class="primary" onclick="saveScript()">
+                            SAVE
+                        </button>
                         <button onclick="closeScriptEditor()">CANCEL</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Pending Windows Modal -->
-            <div class="modal" id="pendingWindowsModal">
+            <!-- Remarks Edit Modal -->
+            <div class="modal" id="remarksModal">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <span>OPEN WINDOWS</span>
-                    </div>
-
-                    <div class="popup-warning">
-                        ⚠️ <strong>Popup Blocker Detected!</strong><br />
-                        Your browser blocked some windows. Click each button to
-                        open, or allow popups for this site.
-                    </div>
-
-                    <div class="pending-windows" id="pendingWindowsList"></div>
-
-                    <button
-                        class="open-all-btn"
-                        onclick="openAllPendingWindows()"
-                    >
-                        OPEN ALL WINDOWS
-                    </button>
-
+                    <div class="modal-header">EDIT REMARKS</div>
+                    <div id="remarksEditContent"></div>
                     <div class="modal-footer">
-                        <button onclick="closePendingWindowsModal()">
-                            CLOSE
+                        <button class="primary" onclick="saveAllRemarks()">
+                            SAVE ALL
                         </button>
+                        <button onclick="closeRemarksModal()">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Windows Modal -->
+            <div class="modal" id="pendingModal">
+                <div class="modal-content">
+                    <div class="modal-header">BLOCKED POPUPS</div>
+                    <p
+                        style="
+                            margin-bottom: 15px;
+                            font-size: 11px;
+                            color: #666;
+                        "
+                    >
+                        Your browser blocked some windows. Click to open:
+                    </p>
+                    <div id="pendingWindowsList"></div>
+                    <div class="modal-footer">
+                        <button class="primary" onclick="openAllPending()">
+                            OPEN ALL
+                        </button>
+                        <button onclick="closePendingModal()">CLOSE</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <script>
-            let allData = [];
+            // State
             let filteredData = [];
             let headers = [];
             let remarkColumns = [];
             let filterOptions = {};
             let currentView = "table";
             let currentCardIndex = -1;
-            let currentFilePath = "";
             let sidebarVisible = true;
-            let visibleFields = {};
-            let sidebarDisplayColumn = "";
-            let customScripts = [];
-            let editingScriptIndex = -1;
+            let visibleCardFields = {};
+            let visibleTableCols = {};
+            let sidebarDisplayCol = "";
+            let cardScripts = [];
+            let tableScripts = [];
+            let editingScriptIdx = -1;
+            let editingScriptType = "card";
             let pendingWindows = [];
+            let analyticsResults = {};
 
-            // Cookie helper functions
-            function setCookie(name, value, days = 365) {
-                const expires = new Date();
-                expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-                document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-            }
-
-            function getCookie(name) {
-                const nameEQ = name + "=";
-                const ca = document.cookie.split(";");
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) === " ") c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) === 0)
-                        return c.substring(nameEQ.length, c.length);
+            // Storage
+            const getHash = () => {
+                let h = 0;
+                for (let i = 0; i < location.pathname.length; i++) {
+                    h = (h << 5) - h + location.pathname.charCodeAt(i);
+                    h = h & h;
                 }
-                return null;
-            }
+                return Math.abs(h).toString(36);
+            };
 
-            function getFileHash() {
-                let hash = 0;
-                const str = currentFilePath || window.location.pathname;
-                for (let i = 0; i < str.length; i++) {
-                    const char = str.charCodeAt(i);
-                    hash = (hash << 5) - hash + char;
-                    hash = hash & hash;
+            const save = (k, v) =>
+                localStorage.setItem(`${k}_${getHash()}`, JSON.stringify(v));
+            const load = (k, d = {}) => {
+                try {
+                    return (
+                        JSON.parse(localStorage.getItem(`${k}_${getHash()}`)) ||
+                        d
+                    );
+                } catch {
+                    return d;
                 }
-                return Math.abs(hash).toString(36);
-            }
+            };
 
-            function saveLastVisited(index) {
-                const fileHash = getFileHash();
-                setCookie(`last_visited_${fileHash}`, index);
-            }
+            // Date helpers
+            const dateToday = () => new Date().toISOString().split("T")[0];
+            const dateNow = () =>
+                new Date().toISOString().replace("T", " ").slice(0, 19);
+            const timeNow = () => new Date().toTimeString().slice(0, 8);
 
-            function getLastVisited() {
-                const fileHash = getFileHash();
-                const lastVisited = getCookie(`last_visited_${fileHash}`);
-                return lastVisited ? parseInt(lastVisited) : -1;
-            }
-
-            function saveSidebarState(visible) {
-                const fileHash = getFileHash();
-                setCookie(`sidebar_${fileHash}`, visible ? "1" : "0");
-            }
-
-            function getSidebarState() {
-                const fileHash = getFileHash();
-                const state = getCookie(`sidebar_${fileHash}`);
-                return state === null ? true : state === "1";
-            }
-
-            function saveFieldVisibility(fields) {
-                const fileHash = getFileHash();
-                setCookie(`fields_${fileHash}`, JSON.stringify(fields));
-            }
-
-            function getFieldVisibility() {
-                const fileHash = getFileHash();
-                const fields = getCookie(`fields_${fileHash}`);
-                return fields ? JSON.parse(fields) : {};
-            }
-
-            function saveSidebarDisplayColumn(column) {
-                const fileHash = getFileHash();
-                setCookie(`sidebar_col_${fileHash}`, column);
-            }
-
-            function getSidebarDisplayColumn() {
-                const fileHash = getFileHash();
-                return getCookie(`sidebar_col_${fileHash}`) || "";
-            }
-
-            function saveCustomScripts(scripts) {
-                const fileHash = getFileHash();
-                localStorage.setItem(
-                    `scripts_${fileHash}`,
-                    JSON.stringify(scripts),
-                );
-            }
-
-            function getCustomScripts() {
-                const fileHash = getFileHash();
-                const scripts = localStorage.getItem(`scripts_${fileHash}`);
-                return scripts ? JSON.parse(scripts) : [];
-            }
-
-            function initializeFieldVisibility() {
-                visibleFields = getFieldVisibility();
-                if (Object.keys(visibleFields).length === 0) {
-                    headers.forEach((header) => {
-                        visibleFields[header] = true;
-                    });
-                }
-            }
-
-            function initializeSidebarDisplayColumn() {
-                const saved = getSidebarDisplayColumn();
-                if (saved && headers.includes(saved)) {
-                    sidebarDisplayColumn = saved;
-                } else if (headers.length > 0) {
-                    sidebarDisplayColumn = headers[0];
-                }
-            }
-
-            function initializeCustomScripts() {
-                customScripts = getCustomScripts();
-            }
-
+            // Init
             async function init() {
                 await loadHeaders();
                 await loadFilterOptions();
                 await loadData();
 
-                initializeFieldVisibility();
-                initializeSidebarDisplayColumn();
-                initializeCustomScripts();
-                sidebarVisible = getSidebarState();
+                visibleCardFields = load("cardFields", {});
+                visibleTableCols = load("tableCols", {});
+                sidebarDisplayCol = load("sidebarCol", "");
+                cardScripts = load("cardScripts", []);
+                tableScripts = load("tableScripts", []);
+                sidebarVisible = load("sidebar", true);
 
-                const lastVisited = getLastVisited();
-                if (
-                    lastVisited >= 0 &&
-                    filteredData.length > 0 &&
-                    lastVisited < filteredData.length
-                ) {
-                    currentCardIndex = lastVisited;
+                if (!Object.keys(visibleCardFields).length) {
+                    [...headers, ...remarkColumns].forEach(
+                        (h) => (visibleCardFields[h] = true),
+                    );
                 }
+                if (!Object.keys(visibleTableCols).length) {
+                    [...headers, ...remarkColumns].forEach(
+                        (h) => (visibleTableCols[h] = true),
+                    );
+                }
+                if (!sidebarDisplayCol && headers.length)
+                    sidebarDisplayCol = headers[0];
+
+                renderTableScripts();
             }
 
             async function loadHeaders() {
                 try {
-                    const response = await fetch("/api/headers");
-                    const data = await response.json();
+                    const res = await fetch("/api/headers");
+                    const data = await res.json();
                     headers = data.headers;
                     remarkColumns = data.remark_columns || [];
-                    populateColumnFilter();
-                } catch (error) {
-                    showMessage("ERROR LOADING HEADERS", "error");
+
+                    const cf = document.getElementById("columnFilter");
+                    cf.innerHTML = '<option value="">FILTER COLUMN</option>';
+                    headers.forEach((h) => {
+                        const o = document.createElement("option");
+                        o.value = h;
+                        o.textContent = h.toUpperCase();
+                        cf.appendChild(o);
+                    });
+
+                    cf.onchange = () => {
+                        const vf = document.getElementById("valueFilter");
+                        vf.innerHTML = '<option value="">FILTER VALUE</option>';
+                        if (cf.value) {
+                            vf.disabled = false;
+                            (filterOptions[cf.value] || []).forEach((v) => {
+                                const o = document.createElement("option");
+                                o.value = v;
+                                o.textContent = v.toUpperCase();
+                                vf.appendChild(o);
+                            });
+                        } else {
+                            vf.disabled = true;
+                        }
+                    };
+                } catch (e) {
+                    showMessage("Error loading headers", "error");
                 }
             }
 
             async function loadFilterOptions() {
                 try {
-                    const response = await fetch("/api/filter-options");
-                    filterOptions = await response.json();
-                } catch (error) {
-                    console.error(error);
-                }
+                    const res = await fetch("/api/filter-options");
+                    filterOptions = await res.json();
+                } catch (e) {}
             }
 
-            function populateColumnFilter() {
-                const columnFilter = document.getElementById("columnFilter");
-                columnFilter.innerHTML =
-                    '<option value="">FILTER COLUMN</option>';
-                headers.forEach((header) => {
-                    const option = document.createElement("option");
-                    option.value = header;
-                    option.textContent = header.toUpperCase();
-                    columnFilter.appendChild(option);
-                });
-
-                columnFilter.addEventListener("change", function () {
-                    const valueFilter = document.getElementById("valueFilter");
-                    valueFilter.innerHTML =
-                        '<option value="">FILTER VALUE</option>';
-
-                    if (this.value) {
-                        valueFilter.disabled = false;
-                        const values = filterOptions[this.value] || [];
-                        values.forEach((value) => {
-                            const option = document.createElement("option");
-                            option.value = value;
-                            option.textContent = value.toUpperCase();
-                            valueFilter.appendChild(option);
-                        });
-                    } else {
-                        valueFilter.disabled = true;
-                    }
-                });
-            }
-
-            async function loadData(filters = {}) {
+            async function loadData() {
                 try {
-                    let url = "/api/data";
                     const params = new URLSearchParams();
+                    const col = document.getElementById("columnFilter").value;
+                    const val = document.getElementById("valueFilter").value;
+                    const search = document.getElementById("searchInput").value;
 
-                    if (filters.column) params.append("column", filters.column);
-                    if (filters.value) params.append("value", filters.value);
-                    if (filters.search) params.append("search", filters.search);
+                    if (col) params.append("column", col);
+                    if (val) params.append("value", val);
+                    if (search) params.append("search", search);
 
-                    if (params.toString()) url += "?" + params.toString();
+                    const res = await fetch("/api/data?" + params);
+                    const data = await res.json();
 
-                    const response = await fetch(url);
-                    const result = await response.json();
+                    filteredData = data.data || [];
+                    remarkColumns = data.remark_columns || [];
 
-                    filteredData = result.data || [];
-                    remarkColumns = result.remark_columns || [];
+                    document.getElementById("totalRows").textContent =
+                        data.total || 0;
+                    document.getElementById("filteredRows").textContent =
+                        filteredData.length;
 
-                    if (currentView === "table") {
-                        renderTable(filteredData);
-                    } else {
-                        renderCards(filteredData);
+                    if (currentView === "table") renderTable();
+                    else {
+                        renderCardNav();
                         if (
                             currentCardIndex >= 0 &&
                             currentCardIndex < filteredData.length
-                        ) {
+                        )
                             showCard(currentCardIndex);
-                        }
                     }
-
-                    updateStats(result.total || 0);
-                } catch (error) {
-                    showMessage("ERROR LOADING DATA", "error");
+                } catch (e) {
+                    showMessage("Error loading data", "error");
                 }
             }
 
-            function renderTable(data) {
+            // Table
+            function renderTable() {
                 const container = document.getElementById("tableContainer");
-                const lastVisited = getLastVisited();
+                const lastVisited = load("lastVisited", -1);
 
-                if (data.length === 0) {
+                if (!filteredData.length) {
                     container.innerHTML = '<div class="loading">NO DATA</div>';
                     return;
                 }
 
                 let html = "<table><thead><tr>";
-
-                headers.forEach((header) => {
-                    html += `<th>${header.toUpperCase()}</th>`;
+                headers.forEach((h) => {
+                    html += `<th class="${visibleTableCols[h] === false ? "hidden-column" : ""}">${h.toUpperCase()}</th>`;
                 });
-
-                remarkColumns.forEach((col) => {
-                    html += `<th>${col.toUpperCase()}</th>`;
+                remarkColumns.forEach((c) => {
+                    html += `<th class="${visibleTableCols[c] === false ? "hidden-column" : ""}">${c.toUpperCase()}</th>`;
                 });
-
                 html += "<th>ACTIONS</th></tr></thead><tbody>";
 
-                data.forEach((row, idx) => {
-                    const isLastVisited = idx === lastVisited;
-                    html += `<tr class="${isLastVisited ? "last-visited" : ""}" id="table-row-${idx}">`;
-                    headers.forEach((header) => {
-                        html += `<td>${row[header] || ""}</td>`;
+                filteredData.forEach((row, idx) => {
+                    const isLast = idx === lastVisited;
+                    html += `<tr class="${isLast ? "last-visited" : ""}" id="row-${idx}">`;
+                    headers.forEach((h) => {
+                        html += `<td class="${visibleTableCols[h] === false ? "hidden-column" : ""}">${row[h] || ""}</td>`;
                     });
-
-                    remarkColumns.forEach((col) => {
-                        html += `<td>${row[col] || ""}</td>`;
+                    remarkColumns.forEach((c) => {
+                        html += `<td class="${visibleTableCols[c] === false ? "hidden-column" : ""}">${row[c] || ""}</td>`;
                     });
-
-                    html += `<td><button onclick="openCardFromTable(${idx})">CARD</button></td>`;
-                    html += "</tr>";
+                    html += `<td><button onclick="openCard(${idx})">VIEW</button></td></tr>`;
                 });
 
                 html += "</tbody></table>";
                 container.innerHTML = html;
 
-                // Scroll to last visited row
                 if (lastVisited >= 0) {
-                    const lastVisitedRow = document.getElementById(
-                        `table-row-${lastVisited}`,
-                    );
-                    if (lastVisitedRow) {
-                        setTimeout(() => {
-                            lastVisitedRow.scrollIntoView({
-                                behavior: "smooth",
-                                block: "center",
-                            });
-                        }, 100);
-                    }
+                    const el = document.getElementById(`row-${lastVisited}`);
+                    if (el)
+                        setTimeout(
+                            () =>
+                                el.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "center",
+                                }),
+                            100,
+                        );
                 }
             }
 
-            function renderCards(data) {
+            // Card
+            function renderCardNav() {
                 const nav = document.getElementById("cardNav");
-                nav.innerHTML = "";
+                nav.innerHTML = `<div class="card-nav-header">Showing: ${sidebarDisplayCol || headers[0] || "Items"}</div>`;
 
-                const headerDiv = document.createElement("div");
-                headerDiv.className = "card-nav-header";
-                headerDiv.id = "cardNavHeader";
-                headerDiv.textContent = `Showing: ${sidebarDisplayColumn || headers[0] || "Items"}`;
-                nav.appendChild(headerDiv);
-
-                const displayColumn = sidebarDisplayColumn || headers[0] || "";
-
-                data.forEach((row, idx) => {
+                const col = sidebarDisplayCol || headers[0] || "";
+                filteredData.forEach((row, idx) => {
                     const item = document.createElement("div");
-                    item.className = "card-nav-item";
-                    item.id = `card-nav-item-${idx}`;
-                    const displayValue =
-                        row[displayColumn] || "ROW " + (idx + 1);
-                    item.textContent = `${idx + 1}. ${displayValue}`;
+                    item.className = `card-nav-item ${idx === currentCardIndex ? "active" : ""}`;
+                    item.id = `nav-${idx}`;
+                    item.textContent = `${idx + 1}. ${row[col] || "Row " + (idx + 1)}`;
                     item.onclick = () => showCard(idx);
-
-                    if (idx === currentCardIndex) {
-                        item.classList.add("active");
-                    }
-
                     nav.appendChild(item);
                 });
             }
 
-            function showCard(index) {
-                currentCardIndex = index;
-                const row = filteredData[index];
+            function showCard(idx) {
+                currentCardIndex = idx;
+                save("lastVisited", idx);
+                document.getElementById("currentIndex").textContent =
+                    `${idx + 1} / ${filteredData.length}`;
+
+                document.querySelectorAll(".card-nav-item").forEach((el, i) => {
+                    el.classList.toggle("active", i === idx);
+                });
+
+                const el = document.getElementById(`nav-${idx}`);
+                if (el)
+                    el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+                const row = filteredData[idx];
                 const content = document.getElementById("cardContent");
-
-                saveLastVisited(index);
-
-                document
-                    .querySelectorAll(".card-nav-item")
-                    .forEach((item, idx) => {
-                        item.classList.toggle("active", idx === index);
-                    });
-
-                const activeItem = document.getElementById(
-                    `card-nav-item-${index}`,
-                );
-                if (activeItem) {
-                    activeItem.scrollIntoView({
-                        behavior: "smooth",
-                        block: "nearest",
-                        inline: "nearest",
-                    });
-                }
-
-                // Get header scripts
-                const headerScripts = customScripts.filter(
+                const headerScripts = cardScripts.filter(
                     (s) => s.position === "header",
+                );
+                const actionScripts = cardScripts.filter(
+                    (s) => s.position === "actions",
+                );
+                const navScripts = cardScripts.filter(
+                    (s) => s.position === "navigation",
                 );
 
                 let html = '<div class="card">';
 
-                html += `
-                <div class="card-header">
-                    <div class="card-title">CARD ${index + 1} OF ${filteredData.length}</div>
+                // Header
+                html += `<div class="card-header">
+                    <div class="card-title">CARD ${idx + 1} OF ${filteredData.length}</div>
                     <div class="card-header-controls">
-                        ${headerScripts
-                            .map(
-                                (script, i) => `
-                            <button class="custom-action-btn header-btn" onclick="executeScript(${customScripts.indexOf(script)})">
-                                ${script.buttonLabel}
-                            </button>
-                        `,
-                            )
-                            .join("")}
-                        <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
-                            ${sidebarVisible ? "HIDE" : "SHOW"} SIDEBAR
-                        </button>
-                        <button class="config-btn" onclick="openConfigModal()">CONFIG</button>
-                        <button class="close-card-btn" onclick="closeCardView()">CLOSE</button>
+                        ${headerScripts.map((s) => `<button class="custom-action-btn header-btn" onclick="runCardScript(${cardScripts.indexOf(s)})">${s.label}</button>`).join("")}
+                        <button class="toggle-sidebar-btn" onclick="toggleSidebar()">${sidebarVisible ? "HIDE" : "SHOW"} SIDEBAR</button>
+                        <button class="config-btn" onclick="openCardConfig()">CONFIG</button>
+                        <button class="close-card-btn" onclick="closeCard()">CLOSE</button>
                     </div>
-                </div>
-            `;
+                </div>`;
 
-                headers.forEach((header) => {
-                    const isVisible = visibleFields[header] !== false;
-                    html += `
-                    <div class="card-row ${isVisible ? "" : "hidden"}" data-field="${header}">
-                        <div class="card-label">${header}</div>
-                        <div class="card-value">${row[header] || "-"}</div>
-                    </div>
-                `;
+                // Fields
+                headers.forEach((h) => {
+                    if (visibleCardFields[h] !== false) {
+                        html += `<div class="card-row"><div class="card-label">${h}</div><div class="card-value">${row[h] || "-"}</div></div>`;
+                    }
                 });
 
-                // Custom Actions Section
-                const actionScripts = customScripts.filter(
-                    (s) => s.position === "actions",
-                );
-                if (actionScripts.length > 0) {
-                    html += `
-                    <div class="custom-actions-section">
-                        <div class="custom-actions-title">CUSTOM ACTIONS</div>
-                        <div class="custom-actions-buttons">
-                            ${actionScripts
-                                .map(
-                                    (script, i) => `
-                                <button class="custom-action-btn" onclick="executeScript(${customScripts.indexOf(script)})">
-                                    ${script.buttonLabel}
-                                </button>
-                            `,
-                                )
-                                .join("")}
-                        </div>
-                    </div>
-                `;
+                // Actions
+                if (actionScripts.length) {
+                    html += `<div class="custom-actions-section"><div class="custom-actions-title">CUSTOM ACTIONS</div>
+                        <div class="custom-actions-buttons">${actionScripts.map((s) => `<button class="custom-action-btn" onclick="runCardScript(${cardScripts.indexOf(s)})">${s.label}</button>`).join("")}</div></div>`;
                 }
 
-                html += `
-                <div class="card-remarks">
-                    <div class="card-remarks-title">REMARKS</div>
-                    <div class="remark-input-wrapper">
-                        <input type="text" class="remark-input" id="cardRemarkInput"
-                               placeholder="value1, value2, value3...">
-                        <button onclick="saveCardRemark()">SAVE</button>
-                    </div>
-            `;
+                // Remarks
+                html += `<div class="card-remarks"><div class="card-remarks-header">
+                    <span class="card-remarks-title">REMARKS</span>
+                    <button onclick="openRemarksModal()">EDIT REMARKS</button>
+                </div><div class="remarks-bubbles">`;
 
-                if (remarkColumns.length > 0) {
-                    html += '<div class="remark-values">';
-                    remarkColumns.forEach((col) => {
-                        const value = row[col] || "";
-                        if (value) {
-                            html += `
-                            <div class="remark-tag">
-                                ${col}: ${value}
-                            </div>
-                        `;
-                        }
-                    });
-                    html += "</div>";
-
-                    if (row._timestamp) {
-                        html += `<div class="remark-meta">LAST MODIFIED: ${row._timestamp}</div>`;
+                let hasRemarks = false;
+                remarkColumns.forEach((c) => {
+                    const val = row[c];
+                    if (val && val.trim()) {
+                        hasRemarks = true;
+                        html += `<span class="remark-bubble"><span class="remark-bubble-label">${c}:</span><span class="remark-bubble-value">${val}</span></span>`;
                     }
-                }
+                });
 
-                html += `</div>`;
-
-                // Navigation with custom scripts
-                const navScripts = customScripts.filter(
-                    (s) => s.position === "navigation",
-                );
-                html += `
-                <div class="card-navigation">
-                    <button onclick="navigateCard(-1)" ${index === 0 ? "disabled" : ""}>← PREV</button>
-                    <button onclick="navigateCard(1)" ${index === filteredData.length - 1 ? "disabled" : ""}>NEXT →</button>
-                    ${navScripts
-                        .map(
-                            (script, i) => `
-                        <button class="custom-action-btn navigation-btn" onclick="executeScript(${customScripts.indexOf(script)})">
-                            ${script.buttonLabel}
-                        </button>
-                    `,
-                        )
-                        .join("")}
-                </div>
-            `;
-
+                if (!hasRemarks)
+                    html += '<span class="no-remarks">No remarks</span>';
                 html += "</div>";
+
+                // Add remark
+                html += `<div class="add-remark-section"><div class="config-section-title">Quick Add</div>
+                    <div class="add-remark-row">
+                        <select id="addRemarkCol">${remarkColumns.map((c) => `<option value="${c}">${c}</option>`).join("")}</select>
+                        <input type="text" id="addRemarkVal" placeholder="Enter value...">
+                        <button onclick="quickAddRemark()">ADD</button>
+                    </div>
+                    <div class="quick-btns">
+                        <button class="quick-btn" onclick="insertDate('today')">Today</button>
+                        <button class="quick-btn" onclick="insertDate('now')">Date+Time</button>
+                        <button class="quick-btn" onclick="insertDate('time')">Time</button>
+                    </div>
+                </div></div>`;
+
+                // Navigation
+                html += `<div class="card-navigation">
+                    <button class="nav-btn primary" onclick="navCard(-1)" ${idx === 0 ? "disabled" : ""}>PREV</button>
+                    <button class="nav-btn primary" onclick="navCard(1)" ${idx === filteredData.length - 1 ? "disabled" : ""}>NEXT</button>
+                    ${navScripts.map((s) => `<button class="custom-action-btn" onclick="runCardScript(${cardScripts.indexOf(s)})">${s.label}</button>`).join("")}
+                </div></div>`;
+
                 content.innerHTML = html;
-
-                document.getElementById("currentIndex").textContent = index + 1;
-
                 applySidebarState();
             }
 
-            // ============ SCRIPT HELPER FUNCTIONS ============
-
-            // Get value from current card data safely
-            function getValue(field) {
-                const data = filteredData[currentCardIndex];
-                return data ? data[field] || "" : "";
+            function navCard(dir) {
+                const newIdx = currentCardIndex + dir;
+                if (newIdx >= 0 && newIdx < filteredData.length)
+                    showCard(newIdx);
             }
 
-            // Open single window
-            function openWindow(url) {
-                if (!url) {
-                    showMessage("No URL provided", "error");
-                    return null;
-                }
-                const win = window.open(url, "_blank");
-                if (!win) {
-                    pendingWindows.push(url);
-                    return null;
-                }
-                return win;
-            }
-
-            // Generate Google search URL
-            function googleSearch(query) {
-                return (
-                    "https://www.google.com/search?q=" +
-                    encodeURIComponent(query)
-                );
-            }
-
-            // Open multiple windows with popup blocker handling
-            function openWindows(urls) {
-                pendingWindows = [];
-                let blockedCount = 0;
-
-                urls.forEach((url, index) => {
-                    if (!url) return;
-
-                    // Try to open with a small delay
-                    setTimeout(() => {
-                        const win = window.open(url, "_blank");
-                        if (!win) {
-                            pendingWindows.push(url);
-                            blockedCount++;
-
-                            // Show modal if this is the last one and some were blocked
-                            if (
-                                index === urls.length - 1 &&
-                                pendingWindows.length > 0
-                            ) {
-                                setTimeout(
-                                    () => showPendingWindowsModal(),
-                                    100,
-                                );
-                            }
-                        }
-                    }, index * 100);
-                });
-
-                // Check after all attempts
-                setTimeout(
-                    () => {
-                        if (pendingWindows.length > 0) {
-                            showPendingWindowsModal();
-                        }
-                    },
-                    urls.length * 100 + 200,
-                );
-            }
-
-            // Show alert message
-            function showAlert(message) {
-                showMessage(message, "success");
-            }
-
-            // Copy to clipboard
-            function copyToClipboard(text) {
-                if (!text) {
-                    showMessage("Nothing to copy", "error");
-                    return;
-                }
-                navigator.clipboard
-                    .writeText(text)
-                    .then(() => {
-                        showMessage(
-                            "Copied: " +
-                                text.substring(0, 50) +
-                                (text.length > 50 ? "..." : ""),
-                            "success",
-                        );
-                    })
-                    .catch((err) => {
-                        showMessage("Failed to copy", "error");
-                    });
-            }
-
-            // Show pending windows modal
-            function showPendingWindowsModal() {
-                const modal = document.getElementById("pendingWindowsModal");
-                const list = document.getElementById("pendingWindowsList");
-
-                list.innerHTML = pendingWindows
-                    .map(
-                        (url, index) => `
-                    <div class="pending-window-item">
-                        <span class="pending-window-url" title="${url}">${url}</span>
-                        <button onclick="openSinglePendingWindow(${index})">OPEN</button>
-                    </div>
-                `,
-                    )
-                    .join("");
-
-                modal.classList.add("active");
-            }
-
-            function openSinglePendingWindow(index) {
-                const url = pendingWindows[index];
-                window.open(url, "_blank");
-
-                // Remove from list
-                const items = document.querySelectorAll(".pending-window-item");
-                if (items[index]) {
-                    items[index].style.opacity = "0.5";
-                    items[index].querySelector("button").disabled = true;
-                    items[index].querySelector("button").textContent = "OPENED";
-                }
-            }
-
-            function openAllPendingWindows() {
-                pendingWindows.forEach((url, index) => {
-                    setTimeout(() => {
-                        window.open(url, "_blank");
-                    }, index * 300);
-                });
-
-                setTimeout(
-                    () => {
-                        closePendingWindowsModal();
-                        showMessage("Opened all windows!", "success");
-                    },
-                    pendingWindows.length * 300 + 100,
-                );
-            }
-
-            function closePendingWindowsModal() {
-                document
-                    .getElementById("pendingWindowsModal")
-                    .classList.remove("active");
-                pendingWindows = [];
-            }
-
-            // Execute custom script
-            function executeScript(scriptIndex) {
-                const script = customScripts[scriptIndex];
-                if (!script) return;
-
-                const data = filteredData[currentCardIndex];
-                const index = currentCardIndex;
-                const allDataRef = filteredData;
-
-                try {
-                    // Create function with all helpers available
-                    const fn = new Function(
-                        "data",
-                        "allData",
-                        "headers",
-                        "index",
-                        "openWindow",
-                        "openWindows",
-                        "googleSearch",
-                        "showAlert",
-                        "copyToClipboard",
-                        "getValue",
-                        script.code,
-                    );
-                    fn(
-                        data,
-                        allDataRef,
-                        headers,
-                        index,
-                        openWindow,
-                        openWindows,
-                        googleSearch,
-                        showAlert,
-                        copyToClipboard,
-                        getValue,
-                    );
-                } catch (error) {
-                    showMessage("Script error: " + error.message, "error");
-                    console.error("Script execution error:", error);
-                }
-            }
-
-            async function saveCardRemark() {
-                const input = document.getElementById("cardRemarkInput");
-                const remark = input.value.trim();
-
-                if (!remark) {
-                    showMessage("ENTER REMARK VALUES", "error");
-                    return;
-                }
-
-                const row = filteredData[currentCardIndex];
-                const rowIndex = row._index;
-
-                try {
-                    const response = await fetch(`/api/remarks/${rowIndex}`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ remark }),
-                    });
-
-                    const result = await response.json();
-
-                    if (result.success) {
-                        showMessage("SAVED", "success");
-                        input.value = "";
-                        await loadData();
-                    } else {
-                        showMessage("SAVE FAILED", "error");
-                    }
-                } catch (error) {
-                    showMessage("ERROR: " + error.message, "error");
-                }
-            }
-
-            function navigateCard(direction) {
-                const newIndex = currentCardIndex + direction;
-                if (newIndex >= 0 && newIndex < filteredData.length) {
-                    showCard(newIndex);
-                }
-            }
-
-            function openCardFromTable(index) {
-                currentCardIndex = index;
+            function openCard(idx) {
+                currentCardIndex = idx;
                 switchView("card");
-                showCard(index);
+                showCard(idx);
             }
 
-            function closeCardView() {
+            function closeCard() {
                 switchView("table");
             }
 
             function toggleSidebar() {
                 sidebarVisible = !sidebarVisible;
-                saveSidebarState(sidebarVisible);
+                save("sidebar", sidebarVisible);
                 applySidebarState();
-
                 const btn = document.querySelector(".toggle-sidebar-btn");
-                if (btn) {
+                if (btn)
                     btn.textContent = sidebarVisible
                         ? "HIDE SIDEBAR"
                         : "SHOW SIDEBAR";
-                }
             }
 
             function applySidebarState() {
                 const nav = document.getElementById("cardNav");
                 const content = document.getElementById("cardContent");
+                nav.classList.toggle("hidden", !sidebarVisible);
+                content.classList.toggle("full-width", !sidebarVisible);
+            }
 
-                if (sidebarVisible) {
-                    nav.classList.remove("hidden");
-                    content.classList.remove("full-width");
+            // Remarks
+            function openRemarksModal() {
+                const row = filteredData[currentCardIndex];
+                let html = "";
+
+                remarkColumns.forEach((c, i) => {
+                    html += `<div class="remark-edit-row">
+                        <label>${c}</label>
+                        <input type="text" id="remarkEdit${i}" value="${(row[c] || "").replace(/"/g, "&quot;")}">
+                        <div class="remark-quick-actions">
+                            <button onclick="appendToRemark(${i}, dateToday())">+Today</button>
+                            <button onclick="appendToRemark(${i}, dateNow())">+DateTime</button>
+                            <button onclick="document.getElementById('remarkEdit${i}').value=''">Clear</button>
+                        </div>
+                    </div>`;
+                });
+
+                document.getElementById("remarksEditContent").innerHTML = html;
+                document.getElementById("remarksModal").classList.add("active");
+            }
+
+            function appendToRemark(idx, val) {
+                const input = document.getElementById(`remarkEdit${idx}`);
+                input.value = input.value ? `${input.value}, ${val}` : val;
+            }
+
+            async function saveAllRemarks() {
+                const row = filteredData[currentCardIndex];
+
+                for (let i = 0; i < remarkColumns.length; i++) {
+                    const col = remarkColumns[i];
+                    const val = document
+                        .getElementById(`remarkEdit${i}`)
+                        .value.trim();
+
+                    await fetch(`/api/remarks/${row._index}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ column: col, value: val }),
+                    });
+                }
+
+                closeRemarksModal();
+                await loadData();
+                showMessage("Remarks saved!", "success");
+            }
+
+            function closeRemarksModal() {
+                document
+                    .getElementById("remarksModal")
+                    .classList.remove("active");
+            }
+
+            async function quickAddRemark() {
+                const col = document.getElementById("addRemarkCol").value;
+                const val = document
+                    .getElementById("addRemarkVal")
+                    .value.trim();
+                if (!val) return showMessage("Enter a value", "error");
+
+                const row = filteredData[currentCardIndex];
+                const current = row[col] || "";
+                const newVal = current ? `${current}, ${val}` : val;
+
+                await fetch(`/api/remarks/${row._index}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ column: col, value: newVal }),
+                });
+
+                document.getElementById("addRemarkVal").value = "";
+                await loadData();
+                showMessage("Remark added!", "success");
+            }
+
+            function insertDate(type) {
+                const input = document.getElementById("addRemarkVal");
+                let val =
+                    type === "today"
+                        ? dateToday()
+                        : type === "now"
+                          ? dateNow()
+                          : timeNow();
+                input.value = input.value ? `${input.value} ${val}` : val;
+            }
+
+            // Remark column management
+            async function addRemarkColumn() {
+                const name = document
+                    .getElementById("newRemarkColumnName")
+                    .value.trim();
+                if (!name) return showMessage("Enter column name", "error");
+
+                const res = await fetch("/api/remark-columns", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "add", name }),
+                });
+
+                if (res.ok) {
+                    document.getElementById("newRemarkColumnName").value = "";
+                    await loadHeaders();
+                    await loadData();
+                    renderRemarkColumnsList();
+                    showMessage("Column added!", "success");
                 } else {
-                    nav.classList.add("hidden");
-                    content.classList.add("full-width");
+                    showMessage("Failed to add column", "error");
                 }
             }
 
-            function switchConfigTab(tabName) {
-                document.querySelectorAll(".modal-tab").forEach((tab) => {
-                    tab.classList.remove("active");
-                });
-                document.querySelectorAll(".tab-content").forEach((content) => {
-                    content.classList.remove("active");
+            async function renameRemarkColumn(oldName) {
+                const input = document.getElementById(`renameCol_${oldName}`);
+                const newName = input.value.trim();
+                if (!newName || newName === oldName) return;
+
+                const res = await fetch("/api/remark-columns", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        action: "rename",
+                        old_name: oldName,
+                        new_name: newName,
+                    }),
                 });
 
-                event.target.classList.add("active");
-                document
-                    .getElementById(`tab-${tabName}`)
-                    .classList.add("active");
+                if (res.ok) {
+                    await loadHeaders();
+                    await loadData();
+                    renderRemarkColumnsList();
+                    showMessage("Column renamed!", "success");
+                } else {
+                    showMessage("Failed to rename", "error");
+                }
             }
 
-            function openConfigModal() {
-                const modal = document.getElementById("configModal");
+            async function deleteRemarkColumn(name) {
+                if (!confirm(`Delete column "${name}"?`)) return;
 
-                // Reset to first tab
-                document.querySelectorAll(".modal-tab").forEach((tab, i) => {
-                    tab.classList.toggle("active", i === 0);
-                });
-                document
-                    .querySelectorAll(".tab-content")
-                    .forEach((content, i) => {
-                        content.classList.toggle("active", i === 0);
-                    });
-
-                const sidebarSelect = document.getElementById(
-                    "sidebarDisplayColumn",
-                );
-                sidebarSelect.innerHTML = "";
-
-                headers.forEach((header) => {
-                    const option = document.createElement("option");
-                    option.value = header;
-                    option.textContent = header.toUpperCase();
-                    if (header === sidebarDisplayColumn) {
-                        option.selected = true;
-                    }
-                    sidebarSelect.appendChild(option);
+                const res = await fetch("/api/remark-columns", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "delete", name }),
                 });
 
-                const togglesContainer =
-                    document.getElementById("fieldToggles");
-                togglesContainer.innerHTML = "";
-
-                headers.forEach((header) => {
-                    const isChecked = visibleFields[header] !== false;
-                    const div = document.createElement("div");
-                    div.className = "field-toggle";
-                    div.innerHTML = `
-                    <input type="checkbox" id="field_${header}" ${isChecked ? "checked" : ""}>
-                    <label for="field_${header}">${header}</label>
-                `;
-                    togglesContainer.appendChild(div);
-
-                    div.onclick = function (e) {
-                        if (e.target.tagName !== "INPUT") {
-                            const checkbox = div.querySelector("input");
-                            checkbox.checked = !checkbox.checked;
-                        }
-                    };
-                });
-
-                // Render scripts list
-                renderScriptsList();
-
-                modal.classList.add("active");
+                if (res.ok) {
+                    await loadHeaders();
+                    await loadData();
+                    renderRemarkColumnsList();
+                    showMessage("Column deleted!", "success");
+                } else {
+                    showMessage("Failed to delete", "error");
+                }
             }
 
-            function renderScriptsList() {
-                const container = document.getElementById("scriptsList");
-
-                if (customScripts.length === 0) {
+            function renderRemarkColumnsList() {
+                const container = document.getElementById("remarkColumnsList");
+                if (!remarkColumns.length) {
                     container.innerHTML =
-                        '<div class="no-scripts">No custom scripts added</div>';
+                        '<div class="no-scripts">No remark columns</div>';
                     return;
                 }
 
-                container.innerHTML = customScripts
+                container.innerHTML = remarkColumns
                     .map(
-                        (script, index) => `
+                        (c) => `
+                    <div class="remark-column-item">
+                        <input type="text" id="renameCol_${c}" value="${c}">
+                        <button onclick="renameRemarkColumn('${c}')">RENAME</button>
+                        <button onclick="deleteRemarkColumn('${c}')">DELETE</button>
+                    </div>
+                `,
+                    )
+                    .join("");
+            }
+
+            // Analytics
+            function toggleAnalytics() {
+                document
+                    .getElementById("analyticsPanel")
+                    .classList.toggle("active");
+            }
+
+            function renderTableScripts() {
+                const container = document.getElementById(
+                    "tableScriptsContainer",
+                );
+                if (!tableScripts.length) {
+                    container.innerHTML =
+                        '<div class="no-scripts">No scripts. Add in TABLE CONFIG.</div>';
+                    return;
+                }
+                container.innerHTML = tableScripts
+                    .map(
+                        (s, i) =>
+                            `<button class="table-script-btn" onclick="runTableScript(${i})">${s.label}</button>`,
+                    )
+                    .join("");
+            }
+
+            // Table Script helpers
+            const getAllData = () => filteredData;
+            const getColumn = (f) =>
+                filteredData.map((r) => r[f]).filter((v) => v);
+            const count = () => filteredData.length;
+            const countWhere = (f, v) =>
+                filteredData.filter((r) => r[f] === v).length;
+            const sum = (f) =>
+                getColumn(f).reduce((a, v) => a + (parseFloat(v) || 0), 0);
+            const average = (f) => {
+                const vals = getColumn(f)
+                    .map((v) => parseFloat(v))
+                    .filter((v) => !isNaN(v));
+                return vals.length
+                    ? vals.reduce((a, b) => a + b, 0) / vals.length
+                    : 0;
+            };
+            const unique = (f) => [...new Set(getColumn(f))];
+            const groupBy = (f) => {
+                const g = {};
+                filteredData.forEach((r) => {
+                    const k = r[f] || "N/A";
+                    g[k] = (g[k] || 0) + 1;
+                });
+                return g;
+            };
+            const filterData = (f, v) => filteredData.filter((r) => r[f] === v);
+            const showResult = (l, v) => {
+                analyticsResults[l] = v;
+                renderAnalyticsResults();
+            };
+            const clearResults = () => {
+                analyticsResults = {};
+                renderAnalyticsResults();
+            };
+            const exportCSV = (data, fn) => {
+                if (!data.length) return showMessage("No data", "error");
+                const h = Object.keys(data[0]).filter(
+                    (k) => !k.startsWith("_"),
+                );
+                let csv = h.join(",") + "\n";
+                data.forEach((r) => {
+                    csv +=
+                        h
+                            .map((k) => {
+                                let v = r[k] || "";
+                                if (String(v).includes(",")) v = `"${v}"`;
+                                return v;
+                            })
+                            .join(",") + "\n";
+                });
+                const blob = new Blob([csv], { type: "text/csv" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = fn || "export.csv";
+                a.click();
+                showMessage("Exported!", "success");
+            };
+
+            function renderAnalyticsResults() {
+                const container = document.getElementById("analyticsResults");
+                const entries = Object.entries(analyticsResults);
+                if (!entries.length) {
+                    container.innerHTML =
+                        '<div class="no-scripts">Run a script to see results</div>';
+                    return;
+                }
+                container.innerHTML = entries
+                    .map(
+                        ([l, v]) => `
+                    <div class="analytics-result-card">
+                        <div class="analytics-result-label">${l}</div>
+                        <div class="analytics-result-value">${typeof v === "object" ? JSON.stringify(v) : v}</div>
+                    </div>
+                `,
+                    )
+                    .join("");
+            }
+
+            function runTableScript(idx) {
+                const s = tableScripts[idx];
+                try {
+                    new Function(
+                        "getAllData",
+                        "getColumn",
+                        "count",
+                        "countWhere",
+                        "sum",
+                        "average",
+                        "unique",
+                        "groupBy",
+                        "filterData",
+                        "showResult",
+                        "clearResults",
+                        "exportCSV",
+                        "headers",
+                        "remarkColumns",
+                        "dateToday",
+                        "dateNow",
+                        "showAlert",
+                        "copyToClipboard",
+                        s.code,
+                    )(
+                        getAllData,
+                        getColumn,
+                        count,
+                        countWhere,
+                        sum,
+                        average,
+                        unique,
+                        groupBy,
+                        filterData,
+                        showResult,
+                        clearResults,
+                        exportCSV,
+                        headers,
+                        remarkColumns,
+                        dateToday,
+                        dateNow,
+                        showAlert,
+                        copyToClipboard,
+                    );
+                } catch (e) {
+                    showMessage("Script error: " + e.message, "error");
+                }
+            }
+
+            // Card Script helpers
+            const getValue = (f) => filteredData[currentCardIndex]?.[f] || "";
+            const setRemark = async (c, v) => {
+                await fetch(
+                    `/api/remarks/${filteredData[currentCardIndex]._index}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ column: c, value: v }),
+                    },
+                );
+                await loadData();
+                showMessage("Saved!", "success");
+            };
+            const addToRemark = async (c, v) => {
+                const cur = getValue(c);
+                await setRemark(c, cur ? `${cur}, ${v}` : v);
+            };
+            const openWindow = (url) => {
+                const w = window.open(url, "_blank");
+                if (!w) {
+                    pendingWindows.push(url);
+                    showPendingModal();
+                }
+            };
+            const openWindows = (urls) => {
+                pendingWindows = [];
+                urls.forEach((u, i) =>
+                    setTimeout(() => {
+                        const w = window.open(u, "_blank");
+                        if (!w) pendingWindows.push(u);
+                        if (i === urls.length - 1 && pendingWindows.length)
+                            showPendingModal();
+                    }, i * 100),
+                );
+            };
+            const googleSearch = (q) =>
+                "https://google.com/search?q=" + encodeURIComponent(q);
+            const showAlert = (m) => showMessage(m, "success");
+            const copyToClipboard = (t) => {
+                navigator.clipboard
+                    .writeText(String(t))
+                    .then(() => showMessage("Copied!", "success"));
+            };
+
+            function runCardScript(idx) {
+                const s = cardScripts[idx];
+                try {
+                    new Function(
+                        "getValue",
+                        "setRemark",
+                        "addToRemark",
+                        "openWindow",
+                        "openWindows",
+                        "googleSearch",
+                        "showAlert",
+                        "copyToClipboard",
+                        "dateToday",
+                        "dateNow",
+                        "timeNow",
+                        "headers",
+                        "remarkColumns",
+                        "data",
+                        "index",
+                        s.code,
+                    )(
+                        getValue,
+                        setRemark,
+                        addToRemark,
+                        openWindow,
+                        openWindows,
+                        googleSearch,
+                        showAlert,
+                        copyToClipboard,
+                        dateToday,
+                        dateNow,
+                        timeNow,
+                        headers,
+                        remarkColumns,
+                        filteredData[currentCardIndex],
+                        currentCardIndex,
+                    );
+                } catch (e) {
+                    showMessage("Script error: " + e.message, "error");
+                }
+            }
+
+            // Config Modals
+            function openTableConfig() {
+                const container = document.getElementById("tableColToggles");
+                container.innerHTML = "";
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const div = document.createElement("div");
+                    div.className = "field-toggle";
+                    div.innerHTML = `<input type="checkbox" id="tcol_${h}" ${visibleTableCols[h] !== false ? "checked" : ""}><label for="tcol_${h}">${h}</label>`;
+                    div.onclick = (e) => {
+                        if (e.target.tagName !== "INPUT")
+                            div.querySelector("input").checked =
+                                !div.querySelector("input").checked;
+                    };
+                    container.appendChild(div);
+                });
+
+                renderTableScriptsList();
+                document
+                    .getElementById("tableConfigModal")
+                    .classList.add("active");
+            }
+
+            function closeTableConfig() {
+                document
+                    .getElementById("tableConfigModal")
+                    .classList.remove("active");
+            }
+
+            function saveTableConfig() {
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const cb = document.getElementById(`tcol_${h}`);
+                    if (cb) visibleTableCols[h] = cb.checked;
+                });
+                save("tableCols", visibleTableCols);
+                closeTableConfig();
+                renderTable();
+                showMessage("Saved!", "success");
+            }
+
+            function selectAllTableCols() {
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const cb = document.getElementById(`tcol_${h}`);
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            function deselectAllTableCols() {
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const cb = document.getElementById(`tcol_${h}`);
+                    if (cb) cb.checked = false;
+                });
+            }
+
+            function renderTableScriptsList() {
+                const container = document.getElementById("tableScriptsList");
+                if (!tableScripts.length) {
+                    container.innerHTML =
+                        '<div class="no-scripts">No scripts</div>';
+                    return;
+                }
+                container.innerHTML = tableScripts
+                    .map(
+                        (s, i) => `
                     <div class="script-item">
-                        <div class="script-item-info">
-                            <div class="script-item-name">${script.name}</div>
-                            <div class="script-item-meta">Button: "${script.buttonLabel}" | Position: ${script.position}</div>
-                        </div>
+                        <span class="script-item-name">${s.name}</span>
                         <div class="script-item-actions">
-                            <button onclick="editScript(${index})">EDIT</button>
-                            <button onclick="deleteScript(${index})">DELETE</button>
+                            <button onclick="editScript('table', ${i})">EDIT</button>
+                            <button onclick="deleteScript('table', ${i})">DEL</button>
                         </div>
                     </div>
                 `,
@@ -2066,130 +2094,231 @@ openWindows([
                     .join("");
             }
 
-            function openScriptEditor(index = -1) {
-                editingScriptIndex = index;
-                const modal = document.getElementById("scriptEditorModal");
-                const title = document.getElementById("scriptEditorTitle");
+            function openCardConfig() {
+                const sel = document.getElementById("sidebarDisplayColumn");
+                sel.innerHTML = headers
+                    .map(
+                        (h) =>
+                            `<option value="${h}" ${h === sidebarDisplayCol ? "selected" : ""}>${h}</option>`,
+                    )
+                    .join("");
 
-                if (index >= 0) {
-                    const script = customScripts[index];
-                    title.textContent = "EDIT SCRIPT";
-                    document.getElementById("scriptName").value = script.name;
-                    document.getElementById("scriptButtonLabel").value =
-                        script.buttonLabel;
+                const container = document.getElementById("cardFieldToggles");
+                container.innerHTML = "";
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const div = document.createElement("div");
+                    div.className = "field-toggle";
+                    div.innerHTML = `<input type="checkbox" id="cfield_${h}" ${visibleCardFields[h] !== false ? "checked" : ""}><label for="cfield_${h}">${h}</label>`;
+                    div.onclick = (e) => {
+                        if (e.target.tagName !== "INPUT")
+                            div.querySelector("input").checked =
+                                !div.querySelector("input").checked;
+                    };
+                    container.appendChild(div);
+                });
+
+                renderRemarkColumnsList();
+                renderCardScriptsList();
+                document
+                    .getElementById("cardConfigModal")
+                    .classList.add("active");
+            }
+
+            function closeCardConfig() {
+                document
+                    .getElementById("cardConfigModal")
+                    .classList.remove("active");
+            }
+
+            function saveCardConfig() {
+                sidebarDisplayCol = document.getElementById(
+                    "sidebarDisplayColumn",
+                ).value;
+                save("sidebarCol", sidebarDisplayCol);
+
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const cb = document.getElementById(`cfield_${h}`);
+                    if (cb) visibleCardFields[h] = cb.checked;
+                });
+                save("cardFields", visibleCardFields);
+
+                closeCardConfig();
+                renderCardNav();
+                if (currentCardIndex >= 0) showCard(currentCardIndex);
+                showMessage("Saved!", "success");
+            }
+
+            function selectAllCardFields() {
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const cb = document.getElementById(`cfield_${h}`);
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            function deselectAllCardFields() {
+                [...headers, ...remarkColumns].forEach((h) => {
+                    const cb = document.getElementById(`cfield_${h}`);
+                    if (cb) cb.checked = false;
+                });
+            }
+
+            function renderCardScriptsList() {
+                const container = document.getElementById("cardScriptsList");
+                if (!cardScripts.length) {
+                    container.innerHTML =
+                        '<div class="no-scripts">No scripts</div>';
+                    return;
+                }
+                container.innerHTML = cardScripts
+                    .map(
+                        (s, i) => `
+                    <div class="script-item">
+                        <span class="script-item-name">${s.name}</span>
+                        <div class="script-item-actions">
+                            <button onclick="editScript('card', ${i})">EDIT</button>
+                            <button onclick="deleteScript('card', ${i})">DEL</button>
+                        </div>
+                    </div>
+                `,
+                    )
+                    .join("");
+            }
+
+            // Script Editor
+            function openScriptEditor(type, idx = -1) {
+                editingScriptType = type;
+                editingScriptIdx = idx;
+
+                document.getElementById("scriptPositionRow").style.display =
+                    type === "card" ? "block" : "none";
+                document.getElementById("scriptEditorTitle").textContent =
+                    idx >= 0 ? "EDIT SCRIPT" : "ADD SCRIPT";
+
+                if (idx >= 0) {
+                    const s =
+                        type === "card" ? cardScripts[idx] : tableScripts[idx];
+                    document.getElementById("scriptName").value = s.name;
+                    document.getElementById("scriptBtnLabel").value = s.label;
                     document.getElementById("scriptPosition").value =
-                        script.position;
-                    document.getElementById("scriptCode").value = script.code;
+                        s.position || "actions";
+                    document.getElementById("scriptCode").value = s.code;
                 } else {
-                    title.textContent = "ADD CUSTOM SCRIPT";
                     document.getElementById("scriptName").value = "";
-                    document.getElementById("scriptButtonLabel").value = "";
+                    document.getElementById("scriptBtnLabel").value = "";
                     document.getElementById("scriptPosition").value = "actions";
                     document.getElementById("scriptCode").value = "";
                 }
 
-                modal.classList.add("active");
+                document
+                    .getElementById("scriptEditorModal")
+                    .classList.add("active");
             }
 
             function closeScriptEditor() {
                 document
                     .getElementById("scriptEditorModal")
                     .classList.remove("active");
-                editingScriptIndex = -1;
             }
 
             function saveScript() {
                 const name = document.getElementById("scriptName").value.trim();
-                const buttonLabel = document
-                    .getElementById("scriptButtonLabel")
+                const label = document
+                    .getElementById("scriptBtnLabel")
                     .value.trim();
                 const position =
                     document.getElementById("scriptPosition").value;
                 const code = document.getElementById("scriptCode").value.trim();
 
-                if (!name || !buttonLabel || !code) {
-                    showMessage("Please fill all fields", "error");
-                    return;
+                if (!name || !label || !code)
+                    return showMessage("Fill all fields", "error");
+
+                const script = { name, label, code };
+                if (editingScriptType === "card") script.position = position;
+
+                const scripts =
+                    editingScriptType === "card" ? cardScripts : tableScripts;
+                if (editingScriptIdx >= 0) scripts[editingScriptIdx] = script;
+                else scripts.push(script);
+
+                save(
+                    editingScriptType === "card"
+                        ? "cardScripts"
+                        : "tableScripts",
+                    scripts,
+                );
+
+                if (editingScriptType === "card") renderCardScriptsList();
+                else {
+                    renderTableScriptsList();
+                    renderTableScripts();
                 }
 
-                const script = { name, buttonLabel, position, code };
-
-                if (editingScriptIndex >= 0) {
-                    customScripts[editingScriptIndex] = script;
-                } else {
-                    customScripts.push(script);
-                }
-
-                saveCustomScripts(customScripts);
-                renderScriptsList();
                 closeScriptEditor();
                 showMessage("Script saved!", "success");
             }
 
-            function editScript(index) {
-                openScriptEditor(index);
+            function editScript(type, idx) {
+                openScriptEditor(type, idx);
             }
 
-            function deleteScript(index) {
-                if (confirm("Are you sure you want to delete this script?")) {
-                    customScripts.splice(index, 1);
-                    saveCustomScripts(customScripts);
-                    renderScriptsList();
-                    showMessage("Script deleted", "success");
+            function deleteScript(type, idx) {
+                if (!confirm("Delete script?")) return;
+
+                const scripts = type === "card" ? cardScripts : tableScripts;
+                scripts.splice(idx, 1);
+                save(type === "card" ? "cardScripts" : "tableScripts", scripts);
+
+                if (type === "card") renderCardScriptsList();
+                else {
+                    renderTableScriptsList();
+                    renderTableScripts();
                 }
+
+                showMessage("Deleted!", "success");
             }
 
-            function selectAllFields() {
-                headers.forEach((header) => {
-                    const checkbox = document.getElementById(`field_${header}`);
-                    if (checkbox) checkbox.checked = true;
-                });
+            // Pending Windows
+            function showPendingModal() {
+                document.getElementById("pendingWindowsList").innerHTML =
+                    pendingWindows
+                        .map(
+                            (u, i) => `
+                    <div style="margin-bottom:8px;display:flex;gap:10px;align-items:center;">
+                        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;font-size:11px;">${u}</span>
+                        <button onclick="window.open('${u}','_blank')">OPEN</button>
+                    </div>
+                `,
+                        )
+                        .join("");
+                document.getElementById("pendingModal").classList.add("active");
             }
 
-            function deselectAllFields() {
-                headers.forEach((header) => {
-                    const checkbox = document.getElementById(`field_${header}`);
-                    if (checkbox) checkbox.checked = false;
-                });
-            }
-
-            function closeConfigModal() {
-                const modal = document.getElementById("configModal");
-                modal.classList.remove("active");
-            }
-
-            function saveFieldConfig() {
-                const sidebarSelect = document.getElementById(
-                    "sidebarDisplayColumn",
+            function openAllPending() {
+                pendingWindows.forEach((u, i) =>
+                    setTimeout(() => window.open(u, "_blank"), i * 300),
                 );
-                sidebarDisplayColumn = sidebarSelect.value;
-                saveSidebarDisplayColumn(sidebarDisplayColumn);
-
-                headers.forEach((header) => {
-                    const checkbox = document.getElementById(`field_${header}`);
-                    visibleFields[header] = checkbox.checked;
-                });
-
-                saveFieldVisibility(visibleFields);
-                closeConfigModal();
-
-                renderCards(filteredData);
-
-                if (currentCardIndex >= 0) {
-                    showCard(currentCardIndex);
-                }
-
-                if (currentView === "table") {
-                    renderTable(filteredData);
-                }
+                closePendingModal();
             }
 
+            function closePendingModal() {
+                document
+                    .getElementById("pendingModal")
+                    .classList.remove("active");
+                pendingWindows = [];
+            }
+
+            // View Switch
             function switchView(view) {
                 currentView = view;
-
-                document.querySelectorAll(".toggle-btn").forEach((btn) => {
-                    btn.classList.remove("active");
-                });
+                document
+                    .querySelectorAll(".toggle-btn")
+                    .forEach((b, i) =>
+                        b.classList.toggle(
+                            "active",
+                            (view === "table" && i === 0) ||
+                                (view === "card" && i === 1),
+                        ),
+                    );
 
                 if (view === "table") {
                     document
@@ -2198,47 +2327,36 @@ openWindows([
                     document
                         .getElementById("cardView")
                         .classList.remove("active");
-                    document
-                        .querySelectorAll(".toggle-btn")[0]
-                        .classList.add("active");
+                    document.getElementById("analyticsBtn").style.display = "";
                     document.getElementById("currentIndex").textContent = "-";
-
-                    renderTable(filteredData);
+                    renderTable();
                 } else {
                     document
                         .getElementById("tableView")
                         .classList.add("hidden");
                     document.getElementById("cardView").classList.add("active");
+                    document.getElementById("analyticsBtn").style.display =
+                        "none";
                     document
-                        .querySelectorAll(".toggle-btn")[1]
-                        .classList.add("active");
-                    renderCards(filteredData);
+                        .getElementById("analyticsPanel")
+                        .classList.remove("active");
+                    renderCardNav();
 
-                    const lastVisited = getLastVisited();
-                    if (lastVisited >= 0 && lastVisited < filteredData.length) {
-                        showCard(lastVisited);
-                    } else if (
+                    const last = load("lastVisited", -1);
+                    if (last >= 0 && last < filteredData.length) showCard(last);
+                    else if (
                         currentCardIndex >= 0 &&
                         currentCardIndex < filteredData.length
-                    ) {
+                    )
                         showCard(currentCardIndex);
-                    } else if (filteredData.length > 0) {
-                        showCard(0);
-                    }
+                    else if (filteredData.length) showCard(0);
                 }
             }
 
+            // Filters
             function applyFilters() {
-                const column = document.getElementById("columnFilter").value;
-                const value = document.getElementById("valueFilter").value;
-                const search = document.getElementById("searchInput").value;
-
-                const filters = {};
-                if (column) filters.column = column;
-                if (value) filters.value = value;
-                if (search) filters.search = search;
-
-                loadData(filters);
+                currentCardIndex = -1;
+                loadData();
             }
 
             function clearFilters() {
@@ -2246,89 +2364,59 @@ openWindows([
                 document.getElementById("valueFilter").value = "";
                 document.getElementById("valueFilter").disabled = true;
                 document.getElementById("searchInput").value = "";
+                currentCardIndex = -1;
                 loadData();
             }
 
-            function updateStats(filteredCount) {
-                document.getElementById("filteredRows").textContent =
-                    filteredCount;
+            // Messages
+            function showMessage(msg, type) {
+                const area = document.getElementById("messageArea");
+                area.innerHTML = `<div class="message ${type}">${msg}</div>`;
+                setTimeout(() => (area.innerHTML = ""), 3000);
             }
 
-            function showMessage(message, type) {
-                const messageArea = document.getElementById("messageArea");
-                const div = document.createElement("div");
-                div.className = `message ${type}`;
-                div.textContent = message;
-                messageArea.innerHTML = "";
-                messageArea.appendChild(div);
-
-                setTimeout(() => {
-                    messageArea.innerHTML = "";
-                }, 3000);
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                document
-                    .getElementById("searchInput")
-                    .addEventListener("keypress", function (e) {
-                        if (e.key === "Enter") applyFilters();
-                    });
-
-                document.addEventListener("keydown", function (e) {
-                    if (e.key === "Escape") {
-                        const pendingModal = document.getElementById(
-                            "pendingWindowsModal",
-                        );
-                        const scriptModal =
-                            document.getElementById("scriptEditorModal");
-                        const configModal =
-                            document.getElementById("configModal");
-
-                        if (pendingModal.classList.contains("active")) {
-                            closePendingWindowsModal();
-                        } else if (scriptModal.classList.contains("active")) {
-                            closeScriptEditor();
-                        } else if (configModal.classList.contains("active")) {
-                            closeConfigModal();
-                        } else if (currentView === "card") {
-                            closeCardView();
+            // Keyboard
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    const modals = [
+                        "remarksModal",
+                        "scriptEditorModal",
+                        "cardConfigModal",
+                        "tableConfigModal",
+                        "pendingModal",
+                    ];
+                    for (const id of modals) {
+                        const m = document.getElementById(id);
+                        if (m.classList.contains("active")) {
+                            m.classList.remove("active");
+                            return;
                         }
                     }
-                });
+                    if (currentView === "card") closeCard();
+                }
 
-                document.addEventListener("keydown", function (e) {
-                    if (
-                        currentView === "card" &&
-                        !document
-                            .getElementById("configModal")
-                            .classList.contains("active") &&
-                        !document
-                            .getElementById("scriptEditorModal")
-                            .classList.contains("active") &&
-                        !document
-                            .getElementById("pendingWindowsModal")
-                            .classList.contains("active")
-                    ) {
-                        if (e.key === "ArrowLeft" && currentCardIndex > 0) {
-                            navigateCard(-1);
-                        } else if (
-                            e.key === "ArrowRight" &&
-                            currentCardIndex < filteredData.length - 1
-                        ) {
-                            navigateCard(1);
-                        }
-                    }
-                });
-
-                fetch("/api/data")
-                    .then((r) => r.json())
-                    .then((result) => {
-                        document.getElementById("totalRows").textContent =
-                            result.total || 0;
-                    });
-
-                init();
+                if (
+                    currentView === "card" &&
+                    !document.querySelector(".modal.active")
+                ) {
+                    if (e.key === "ArrowLeft" && currentCardIndex > 0)
+                        navCard(-1);
+                    else if (
+                        e.key === "ArrowRight" &&
+                        currentCardIndex < filteredData.length - 1
+                    )
+                        navCard(1);
+                }
             });
+
+            document
+                .getElementById("searchInput")
+                .addEventListener("keypress", (e) => {
+                    if (e.key === "Enter") applyFilters();
+                });
+
+            // Init
+            init();
         </script>
     </body>
 </html>

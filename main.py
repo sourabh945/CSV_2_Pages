@@ -63,7 +63,7 @@ def read_remarks_file():
             print(f"Error reading remarks file: {e}")
     return remarks_data
 
-def update_remark_in_file(row_index, remark_values):
+def update_remark_in_file(row_index, column=None, value=None, remark_values=None):
     """Update a specific row's remark in the CSV file"""
     try:
         global remark_columns
@@ -72,27 +72,34 @@ def update_remark_in_file(row_index, remark_values):
         # Read current data
         with open(remarks_file, 'r', newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f)
-            current_headers = reader.fieldnames
+            current_headers = list(reader.fieldnames)
             rows = list(reader)
 
-        # Determine new columns needed
-        num_new_cols = len(remark_values)
-        new_col_names = [f"Remark_{i+1}" for i in range(num_new_cols)]
+        # Mode 1: Set specific column value
+        if column is not None and value is not None:
+            # Add column if it doesn't exist
+            if column not in current_headers:
+                current_headers.append(column)
 
-        # Check if we need to add new columns
-        existing_remark_cols = [h for h in current_headers if h.startswith("Remark_")]
-        if len(existing_remark_cols) < num_new_cols:
-            # Need to add more columns
-            for i in range(len(existing_remark_cols), num_new_cols):
-                current_headers.append(f"Remark_{i+1}")
+            # Update the specific row
+            if 0 <= row_index < len(rows):
+                rows[row_index][column] = value
 
-        # Update the specific row
-        if 0 <= row_index < len(rows):
-            for i, value in enumerate(remark_values):
-                col_name = f"Remark_{i+1}"
-                if col_name not in rows[row_index]:
-                    rows[row_index][col_name] = ''
-                rows[row_index][col_name] = value.strip()
+        # Mode 2: Add comma-separated values to Remark_N columns
+        elif remark_values is not None:
+            num_new_cols = len(remark_values)
+
+            # Check if we need to add new columns
+            existing_remark_cols = [h for h in current_headers if h.startswith("Remark_")]
+            if len(existing_remark_cols) < num_new_cols:
+                for i in range(len(existing_remark_cols), num_new_cols):
+                    current_headers.append(f"Remark_{i+1}")
+
+            # Update the specific row
+            if 0 <= row_index < len(rows):
+                for i, val in enumerate(remark_values):
+                    col_name = f"Remark_{i+1}"
+                    rows[row_index][col_name] = val.strip()
 
         # Ensure all rows have all columns
         for row in rows:
@@ -110,6 +117,106 @@ def update_remark_in_file(row_index, remark_values):
         return True
     except Exception as e:
         print(f"Error updating remark: {e}")
+        return False
+
+def rename_remark_column(old_name, new_name):
+    """Rename a remark column in the CSV file"""
+    try:
+        global remark_columns
+        rows = []
+
+        with open(remarks_file, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            current_headers = list(reader.fieldnames)
+            rows = list(reader)
+
+        if old_name not in current_headers:
+            return False
+
+        # Rename in headers
+        header_index = current_headers.index(old_name)
+        current_headers[header_index] = new_name
+
+        # Rename in all rows
+        for row in rows:
+            if old_name in row:
+                row[new_name] = row.pop(old_name)
+
+        # Write back to file
+        with open(remarks_file, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=current_headers)
+            writer.writeheader()
+            writer.writerows(rows)
+
+        get_remark_columns()
+        return True
+    except Exception as e:
+        print(f"Error renaming column: {e}")
+        return False
+
+def add_remark_column(column_name):
+    """Add a new remark column to the CSV file"""
+    try:
+        global remark_columns
+        rows = []
+
+        with open(remarks_file, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            current_headers = list(reader.fieldnames)
+            rows = list(reader)
+
+        if column_name in current_headers:
+            return False  # Column already exists
+
+        current_headers.append(column_name)
+
+        # Add empty value to all rows
+        for row in rows:
+            row[column_name] = ''
+
+        # Write back to file
+        with open(remarks_file, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=current_headers)
+            writer.writeheader()
+            writer.writerows(rows)
+
+        get_remark_columns()
+        return True
+    except Exception as e:
+        print(f"Error adding column: {e}")
+        return False
+
+def delete_remark_column(column_name):
+    """Delete a remark column from the CSV file"""
+    try:
+        global remark_columns
+        rows = []
+
+        with open(remarks_file, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            current_headers = list(reader.fieldnames)
+            rows = list(reader)
+
+        if column_name not in current_headers or column_name in headers:
+            return False  # Can't delete original headers
+
+        current_headers.remove(column_name)
+
+        # Remove from all rows
+        for row in rows:
+            if column_name in row:
+                del row[column_name]
+
+        # Write back to file
+        with open(remarks_file, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=current_headers)
+            writer.writeheader()
+            writer.writerows(rows)
+
+        get_remark_columns()
+        return True
+    except Exception as e:
+        print(f"Error deleting column: {e}")
         return False
 
 @app.route("/api/data", methods=["GET"])
@@ -174,25 +281,88 @@ def add_remark(row_index):
         return jsonify({"error": "Invalid row index."}), 404
 
     data = request.get_json()
-    remark = data.get('remark', '')
 
-    # Parse comma-separated values
-    remark_values = [v.strip() for v in remark.split(',') if v.strip()]
+    # Mode 1: Set specific column
+    if 'column' in data and 'value' in data:
+        column = data.get('column')
+        value = data.get('value', '')
 
-    if not remark_values:
-        return jsonify({"error": "No remark values provided"}), 400
+        success = update_remark_in_file(row_index, column=column, value=value)
 
-    success = update_remark_in_file(row_index, remark_values)
+        if success:
+            return jsonify({
+                "success": True,
+                "row_index": row_index,
+                "column": column,
+                "value": value,
+                "file": remarks_file
+            })
+        else:
+            return jsonify({"error": "Failed to update remark"}), 500
 
-    if success:
-        return jsonify({
-            "success": True,
-            "row_index": row_index,
-            "remark_values": remark_values,
-            "file": remarks_file
-        })
-    else:
-        return jsonify({"error": "Failed to update remark"}), 500
+    # Mode 2: Comma-separated values (legacy support)
+    elif 'remark' in data:
+        remark = data.get('remark', '')
+        remark_values = [v.strip() for v in remark.split(',') if v.strip()]
+
+        if not remark_values:
+            return jsonify({"error": "No remark values provided"}), 400
+
+        success = update_remark_in_file(row_index, remark_values=remark_values)
+
+        if success:
+            return jsonify({
+                "success": True,
+                "row_index": row_index,
+                "remark_values": remark_values,
+                "file": remarks_file
+            })
+        else:
+            return jsonify({"error": "Failed to update remark"}), 500
+
+    return jsonify({"error": "Invalid request data"}), 400
+
+@app.route("/api/remark-columns", methods=["POST"])
+def manage_remark_columns():
+    """Add, rename, or delete remark columns"""
+    data = request.get_json()
+    action = data.get('action')
+
+    if action == 'add':
+        column_name = data.get('name')
+        if not column_name:
+            return jsonify({"error": "Column name required"}), 400
+
+        success = add_remark_column(column_name)
+        if success:
+            return jsonify({"success": True, "remark_columns": remark_columns})
+        else:
+            return jsonify({"error": "Column already exists or error occurred"}), 400
+
+    elif action == 'rename':
+        old_name = data.get('old_name')
+        new_name = data.get('new_name')
+        if not old_name or not new_name:
+            return jsonify({"error": "Both old_name and new_name required"}), 400
+
+        success = rename_remark_column(old_name, new_name)
+        if success:
+            return jsonify({"success": True, "remark_columns": remark_columns})
+        else:
+            return jsonify({"error": "Failed to rename column"}), 400
+
+    elif action == 'delete':
+        column_name = data.get('name')
+        if not column_name:
+            return jsonify({"error": "Column name required"}), 400
+
+        success = delete_remark_column(column_name)
+        if success:
+            return jsonify({"success": True, "remark_columns": remark_columns})
+        else:
+            return jsonify({"error": "Failed to delete column"}), 400
+
+    return jsonify({"error": "Invalid action"}), 400
 
 @app.route("/api/filter-options", methods=["GET"])
 def get_filter_options():
@@ -225,4 +395,4 @@ def ui_page():
 
 if __name__ == "__main__":
     initialize_remarks_file()
-    app.run(debug=False)
+    app.run(debug=False, port=5010)
