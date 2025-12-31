@@ -1528,6 +1528,12 @@
                         <div class="custom-actions-buttons">${actionScripts.map((s) => `<button class="custom-action-btn" onclick="runCardScript(${cardScripts.indexOf(s)})">${s.label}</button>`).join("")}</div></div>`;
                 }
 
+                html += `<div class="card-navigation">
+                    <button class="nav-btn primary" onclick="navCard(-1)" ${idx === 0 ? "disabled" : ""}>PREV</button>
+                    <button class="nav-btn primary" onclick="navCard(1)" ${idx === filteredData.length - 1 ? "disabled" : ""}>NEXT</button>
+                    ${navScripts.map((s) => `<button class="custom-action-btn" onclick="runCardScript(${cardScripts.indexOf(s)})">${s.label}</button>`).join("")}
+                </div></div>`;
+
                 // Remarks
                 html += `<div class="card-remarks"><div class="card-remarks-header">
                     <span class="card-remarks-title">REMARKS</span>
@@ -1559,13 +1565,6 @@
                         <button class="quick-btn" onclick="insertDate('now')">Date+Time</button>
                         <button class="quick-btn" onclick="insertDate('time')">Time</button>
                     </div>
-                </div></div>`;
-
-                // Navigation
-                html += `<div class="card-navigation">
-                    <button class="nav-btn primary" onclick="navCard(-1)" ${idx === 0 ? "disabled" : ""}>PREV</button>
-                    <button class="nav-btn primary" onclick="navCard(1)" ${idx === filteredData.length - 1 ? "disabled" : ""}>NEXT</button>
-                    ${navScripts.map((s) => `<button class="custom-action-btn" onclick="runCardScript(${cardScripts.indexOf(s)})">${s.label}</button>`).join("")}
                 </div></div>`;
 
                 content.innerHTML = html;
